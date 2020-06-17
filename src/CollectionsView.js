@@ -271,7 +271,7 @@ export default class CollectionsView extends React.Component {
     return (
       <div data-test-collections ref={contentRef}>
         <SearchAndSortQuery
-          initialFilterState={{}}
+          initialFilterState={{ permitted: ['yes'], selected: ['yes'] }}
           initialSearchState={{ query: '' }}
           initialSortState={{ sort: 'label' }}
           queryGetter={queryGetter}
