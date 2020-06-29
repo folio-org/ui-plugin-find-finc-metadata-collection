@@ -34,6 +34,8 @@ const reduceCheckedRecords = (records, isChecked = false) => {
   return records.reduce(recordsReducer, {});
 };
 
+let filtered;
+
 export default class CollectionsView extends React.Component {
   static defaultProps = {
     filterData: {},
@@ -64,6 +66,8 @@ export default class CollectionsView extends React.Component {
       );
     }
     // {6dd325f8-b1d5-4568-a0d7-aecf6b8d6123: {…}, 9a2427cd-4110-4bd9-b6f9-e3475631bbac: {…}}
+
+    // filtered = this.props.contentData;
   }
 
   columnWidths = {
@@ -182,7 +186,7 @@ export default class CollectionsView extends React.Component {
   render() {
     const { assignedStatus, filterData, children, contentRef, contentData, filterToCollections, onNeedMoreData, queryGetter, querySetter, collection } = this.props;
     const { checkedMap, isAllChecked } = this.state;
-    // const count = collection ? collection.totalCount() : 0;
+    // const countCollection = collection ? collection.totalCount() : 0;
     const query = queryGetter() || {};
     const sortOrder = query.sort || '';
     const checkedRecordsLength = this.state.checkedMap ? Object.keys(this.state.checkedMap).length : 0;
@@ -191,17 +195,18 @@ export default class CollectionsView extends React.Component {
 
     // Here we filter collections is they are assigned or unassigned
     // MAybe this block is better suited in CollectionsSearchContainer.js?
-    console.log(`Here you can filter your contenData by filterCollections ${filterToCollections} and the assignedStatus ${assignedStatus}`);
-    let filtered = contentData;
+    // console.log(`Here you can filter your contenData by filterCollections ${filterToCollections} and the assignedStatus ${assignedStatus}`);
+    filtered = contentData;
     if (_.findIndex(assignedStatus, s => s.includes('yes')) >= 0 && _.findIndex(assignedStatus, s => s.includes('no')) === -1) {
       filtered = contentData.filter(c => filterToCollections.includes(c.id));
-      console.log(`The assigned collections are ${filtered.map(c => c.id).join(', ')}`);
+      // console.log(`The assigned collections are ${filtered.map(c => c.id).join(', ')}`);
     } else if (_.findIndex(assignedStatus, s => s.includes('no')) >= 0 && _.findIndex(assignedStatus, s => s.includes('yes')) === -1) {
       filtered = contentData.filter(c => !filterToCollections.includes(c.id));
-      console.log(`The unassigned collections are ${filtered.map(c => c.id).join(', ')}`);
+      // console.log(`The unassigned collections are ${filtered.map(c => c.id).join(', ')}`);
     }
     // I am a bit unsure if we can safely replace count by this statement
-    const count = filtered ? filtered.length : 0;
+    // const count = filtered ? filtered.length : 0;
+    // const count = filtered ? Object.keys(filtered).length : 0;
 
     const footer = (
       <PaneFooter footerClass={css.paneFooter}>
@@ -364,7 +369,7 @@ export default class CollectionsView extends React.Component {
                         sortOrder.startsWith('-') ? 'descending' : 'ascending'
                       }
                       sortOrder={sortOrder.replace(/^-/, '').replace(/,.*/, '')}
-                      totalCount={count}
+                      totalCount={filtered ? filtered.length : 0}
                       virtualize
                       visibleColumns={visibleColumns}
                     />

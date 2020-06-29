@@ -10,7 +10,7 @@ import {
 import CollectionsView from './CollectionsView';
 import filterConfig from './filterConfigData';
 
-const INITIAL_RESULT_COUNT = 100;
+const INITIAL_RESULT_COUNT = 100000;
 const RESULT_COUNT_INCREMENT = 100;
 
 class CollectionSearchContainer extends React.Component {
@@ -19,7 +19,7 @@ class CollectionSearchContainer extends React.Component {
       type: 'okapi',
       records: 'fincSelectMetadataCollections',
       recordsRequired: '%{resultCount}',
-      perRequest: 100,
+      perRequest: 100000,
       path: 'finc-select/metadata-collections',
       resourceShouldRefresh: true,
       GET: {
@@ -31,7 +31,8 @@ class CollectionSearchContainer extends React.Component {
               'Collection Name': 'label',
             },
             filterConfig,
-            2
+            // show all records if no filter is selected
+            // 2
           ),
         },
         staticFallback: { params: {} },
