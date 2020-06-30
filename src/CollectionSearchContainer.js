@@ -150,19 +150,13 @@ class CollectionSearchContainer extends React.Component {
       this.collection.update(this.props, 'metadataCollections');
     }
 
-    // Here we filter collections is they are assigned or unassigned
-    // MAybe this block is better suited in CollectionsSearchContainer.js?
-    // console.log(`Here you can filter your contenData by filterCollections ${filterToCollections} and the assignedStatus ${assignedStatus}`);
     let filtered = contentData;
+    // Here we filter collections is they are assigned or unassigned
     if (_.findIndex(this.state.assignedStatus, s => s.includes('yes')) >= 0 && _.findIndex(this.state.assignedStatus, s => s.includes('no')) === -1) {
       filtered = contentData.filter(c => filterToCollections.includes(c.id));
-      // console.log(`The assigned collections are ${filtered.map(c => c.id).join(', ')}`);
     } else if (_.findIndex(this.state.assignedStatus, s => s.includes('no')) >= 0 && _.findIndex(this.state.assignedStatus, s => s.includes('yes')) === -1) {
       filtered = contentData.filter(c => !filterToCollections.includes(c.id));
-      // console.log(`The unassigned collections are ${filtered.map(c => c.id).join(', ')}`);
     }
-    // I am a bit unsure if we can safely replace count by this statement
-    // const count = filtered ? filtered.length : 0;
 
     return (
       <CollectionsView
