@@ -10,7 +10,7 @@ import {
 import CollectionsView from './CollectionsView';
 import filterConfig from './filterConfigData';
 
-const INITIAL_RESULT_COUNT = 100;
+const INITIAL_RESULT_COUNT = 100000;
 const RESULT_COUNT_INCREMENT = 100;
 
 class CollectionSearchContainer extends React.Component {
@@ -19,7 +19,7 @@ class CollectionSearchContainer extends React.Component {
       type: 'okapi',
       records: 'fincSelectMetadataCollections',
       recordsRequired: '%{resultCount}',
-      perRequest: 100,
+      perRequest: 100000,
       path: 'finc-select/metadata-collections',
       resourceShouldRefresh: true,
       GET: {
@@ -28,10 +28,11 @@ class CollectionSearchContainer extends React.Component {
             'cql.allRecords=1',
             '(label="%{query.query}*")',
             {
-              'Collection Name': 'label'
+              'Collection Name': 'label',
             },
             filterConfig,
-            2,
+            // show all records if no filter is selected
+            // 2
           ),
         },
         staticFallback: { params: {} },
@@ -41,7 +42,12 @@ class CollectionSearchContainer extends React.Component {
       type: 'okapi',
       records: 'tinyMetadataSources',
       path: 'finc-config/tiny-metadata-sources',
-      resourceShouldRefresh: true
+      resourceShouldRefresh: true,
+    },
+    filterToCollections: {
+      type: 'okapi',
+      path: 'finc-select/filters/!{filterId}/collections',
+      records: 'collectionIds',
     },
     query: { initialValue: {} },
     resultCount: { initialValue: INITIAL_RESULT_COUNT },
@@ -60,21 +66,29 @@ class CollectionSearchContainer extends React.Component {
       okapi: PropTypes.object,
     }),
     selectRecordsContainer: PropTypes.func,
-  }
+  };
 
   static defaultProps = {
     selectRecordsContainer: _.noop,
-  }
+  };
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      assignedStatus: '',
+    };
 
     this.logger = props.stripes.logger;
     this.searchField = React.createRef();
   }
 
   componentDidMount() {
-    this.collection = new StripesConnectedSource(this.props, this.logger, 'metadataCollections');
+    this.collection = new StripesConnectedSource(
+      this.props,
+      this.logger,
+      'metadataCollections'
+    );
 
     if (this.searchField.current) {
       this.searchField.current.focus();
@@ -86,12 +100,31 @@ class CollectionSearchContainer extends React.Component {
   }
 
   querySetter = ({ nsValues }) => {
+    // Check if query contains 'assigned'.
+    // If this is the case, remove the assigned filter from the query, and set it to this component's state.
+    // Attention: This is hacky!
+    const regexp = /,?assigned\.(yes|no)/gi;
+    const filters = _.get(nsValues, 'filters', '');
+    if (regexp.test(filters)) {
+      let withoutAssigned = filters.replace(regexp, '');
+      withoutAssigned = withoutAssigned.replace(/(^,)|(,$)/g, '');
+      nsValues.filters = withoutAssigned;
+
+      const assignedStatus = filters.match(regexp);
+      this.setState({
+        assignedStatus
+      });
+    } else {
+      this.setState({
+        assignedStatus: '',
+      });
+    }
     this.props.mutator.query.update(nsValues);
-  }
+  };
 
   queryGetter = () => {
     return _.get(this.props.resources, 'query', {});
-  }
+  };
 
   handleNeedMoreData = () => {
     if (this.collection) {
@@ -103,25 +136,35 @@ class CollectionSearchContainer extends React.Component {
     const qindex = e.target.value;
 
     this.props.mutator.query.update({ qindex });
-  }
+  };
 
-  passRecordsOut = records => {
+  passRecordsOut = (records) => {
     this.props.selectRecordsContainer(records);
-  }
+  };
 
   render() {
     const { onSelectRow, resources } = this.props;
-
+    const contentData = _.get(resources, 'metadataCollections.records', []);
+    const filterToCollections = _.get(resources, 'filterToCollections.records', []);
     if (this.collection) {
       this.collection.update(this.props, 'metadataCollections');
     }
 
+    let filtered = contentData;
+    // Here we filter collections is they are assigned or unassigned
+    if (_.findIndex(this.state.assignedStatus, s => s.includes('yes')) >= 0 && _.findIndex(this.state.assignedStatus, s => s.includes('no')) === -1) {
+      filtered = contentData.filter(c => filterToCollections.includes(c.id));
+    } else if (_.findIndex(this.state.assignedStatus, s => s.includes('no')) >= 0 && _.findIndex(this.state.assignedStatus, s => s.includes('yes')) === -1) {
+      filtered = contentData.filter(c => !filterToCollections.includes(c.id));
+    }
+
     return (
       <CollectionsView
+        assignedStatus={this.state.assignedStatus}
         filterId={this.props.filterId}
         collectionIds={this.props.collectionIds}
         isEditable={this.props.isEditable}
-        contentData={_.get(resources, 'metadataCollections.records', [])}
+        contentData={contentData}
         onNeedMoreData={this.handleNeedMoreData}
         onSelectRow={onSelectRow}
         queryGetter={this.queryGetter}
@@ -131,6 +174,12 @@ class CollectionSearchContainer extends React.Component {
         filterData={{
           mdSources: _.get(this.props.resources, 'mdSources.records', []),
         }}
+        filtered={filtered}
+        filterToCollections={_.get(
+          resources,
+          'filterToCollections.records',
+          []
+        )}
         onClose={this.props.onClose}
         stripes={this.props.stripes}
         onSaveMultiple={this.passRecordsOut}
@@ -139,4 +188,6 @@ class CollectionSearchContainer extends React.Component {
   }
 }
 
-export default stripesConnect(CollectionSearchContainer, { dataKey: 'find_collection' });
+export default stripesConnect(CollectionSearchContainer, {
+  dataKey: 'find_collection',
+});

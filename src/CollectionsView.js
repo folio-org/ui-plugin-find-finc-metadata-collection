@@ -59,7 +59,7 @@ export default class CollectionsView extends React.Component {
       const myObj = _.mapKeys(arrayWithIds);
       this.setState(
         {
-          checkedMap: myObj
+          checkedMap: myObj,
         }
       );
     }
@@ -128,7 +128,7 @@ export default class CollectionsView extends React.Component {
   // counting records of result list
   renderResultsPaneSubtitle = (collection) => {
     if (collection) {
-      const count = collection ? collection.totalCount() : 0;
+      const count = collection ? collection.length : 0;
       return <FormattedMessage id="stripes-smart-components.searchResultsCountHeader" values={{ count }} />;
     }
 
@@ -180,9 +180,8 @@ export default class CollectionsView extends React.Component {
   isSelected = ({ collection }) => Boolean(this.state.checkedMap[collection.id]);
 
   render() {
-    const { filterData, children, contentRef, contentData, onNeedMoreData, queryGetter, querySetter, collection } = this.props;
+    const { filtered, filterData, children, contentRef, onNeedMoreData, queryGetter, querySetter } = this.props;
     const { checkedMap, isAllChecked } = this.state;
-    const count = collection ? collection.totalCount() : 0;
     const query = queryGetter() || {};
     const sortOrder = query.sort || '';
     const checkedRecordsLength = this.state.checkedMap ? Object.keys(this.state.checkedMap).length : 0;
@@ -257,7 +256,7 @@ export default class CollectionsView extends React.Component {
     return (
       <div data-test-collections ref={contentRef}>
         <SearchAndSortQuery
-          initialFilterState={{}}
+          initialFilterState={{ permitted: ['yes'], selected: ['yes'] }}
           initialSearchState={{ query: '' }}
           initialSortState={{ sort: 'label' }}
           queryGetter={queryGetter}
@@ -332,14 +331,14 @@ export default class CollectionsView extends React.Component {
                     firstMenu={this.renderResultsFirstMenu(activeFilters)}
                     padContent={false}
                     paneTitle="Metadata Collections"
-                    paneSub={this.renderResultsPaneSubtitle(collection)}
+                    paneSub={this.renderResultsPaneSubtitle(filtered)}
                     footer={footer}
                   >
                     <MultiColumnList
                       autosize
                       columnMapping={columnMapping}
                       columnWidths={this.columnWidths}
-                      contentData={contentData}
+                      contentData={filtered}
                       formatter={formatter}
                       id="list-collections"
                       isEmptyMessage="no results"
@@ -350,7 +349,7 @@ export default class CollectionsView extends React.Component {
                         sortOrder.startsWith('-') ? 'descending' : 'ascending'
                       }
                       sortOrder={sortOrder.replace(/^-/, '').replace(/,.*/, '')}
-                      totalCount={count}
+                      totalCount={filtered ? filtered.length : 0}
                       virtualize
                       visibleColumns={visibleColumns}
                     />
@@ -372,7 +371,6 @@ CollectionsView.propTypes = Object.freeze({
   isEditable: PropTypes.bool,
   children: PropTypes.object,
   contentRef: PropTypes.object,
-  contentData: PropTypes.arrayOf(PropTypes.object),
   filterData: PropTypes.shape({
     mdSources: PropTypes.array,
   }),
@@ -384,4 +382,5 @@ CollectionsView.propTypes = Object.freeze({
     totalCount: PropTypes.func
   }),
   onClose: PropTypes.func.isRequired,
+  filtered: PropTypes.arrayOf(PropTypes.object),
 });
