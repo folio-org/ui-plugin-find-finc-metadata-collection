@@ -1,6 +1,6 @@
 {
   "name": "@folio/plugin-find-finc-metadata-collection",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Finder plugin for finc metadata collections",
   "repository": "folio-org/ui-plugin-find-finc-metadata-collection",
   "publishConfig": {
@@ -24,21 +24,21 @@
   },
   "devDependencies": {
     "@folio/eslint-config-stripes": "^4.2.0",
-    "@folio/stripes": "^4.0.0",
-    "@folio/stripes-components": "^7.0.0",
-    "@folio/stripes-core": "^5.0.0",
-    "@folio/stripes-smart-components": "^4.0.0",
+    "@folio/stripes": "^5.0.0",
+    "@folio/stripes-components": "^8.0.0",
+    "@folio/stripes-core": "^6.0.0",
+    "@folio/stripes-smart-components": "^5.0.0",
     "babel-eslint": "^9.0.0",
     "eslint": "^6.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-intl": "^4.5.3",
     "react-redux": "^5.0.7",
+    "react-router-dom": "^5.2.0",
     "redux": "^4.0.0"
   },
   "dependencies": {
     "prop-types": "^15.6.0",
-    "react-router-dom": "^4.3.1",
     "lodash": "^4.17.4",
     "dom-helpers":"^3.4.0"
   },
@@ -48,7 +48,7 @@
     "react-dom": "*",
     "react-intl": "^4.5.3",
     "react-redux": "*",
-    "react-router-dom": "*",
+    "react-router-dom": "^5.2.0",
     "redux": "*"
   }
 }
