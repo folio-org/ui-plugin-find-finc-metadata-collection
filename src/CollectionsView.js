@@ -326,7 +326,7 @@ export default class CollectionsView extends React.Component {
                     </Pane>
                   }
                   <Pane
-                    defaultWidth="80%"
+                    defaultWidth="fill"
                     firstMenu={this.renderResultsFirstMenu(activeFilters)}
                     padContent={false}
                     paneTitle="Metadata Collections"
