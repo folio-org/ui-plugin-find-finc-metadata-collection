@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import {
   Accordion,
@@ -75,7 +76,7 @@ class CollectionFilters extends React.Component {
     return null;
   }
 
-  renderCheckboxFilter = (key, name, props) => {
+  renderCheckboxFilter = (key, props) => {
     const { activeFilters } = this.props;
     const groupFilters = activeFilters[key] || [];
 
@@ -84,7 +85,7 @@ class CollectionFilters extends React.Component {
         displayClearButton={groupFilters.length > 0}
         header={FilterAccordionHeader}
         id={`filter-accordion-${key}`}
-        label={`${name}`}
+        label={<FormattedMessage id={`ui-plugin-find-finc-metadata-collection.filter.${key}`} />}
         onClearFilter={() => {
           this.props.filterHandlers.clearGroup(key);
         }}
@@ -121,7 +122,7 @@ class CollectionFilters extends React.Component {
         displayClearButton={mdSourceFilters.length > 0}
         header={FilterAccordionHeader}
         id="filter-accordion-mdSource"
-        label="Metadata source"
+        label={<FormattedMessage id="ui-plugin-find-finc-metadata-collection.filter.mdSource" />}
         onClearFilter={() => {
           this.props.filterHandlers.clearGroup('mdSource');
         }}
