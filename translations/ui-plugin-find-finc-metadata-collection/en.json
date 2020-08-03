@@ -4,5 +4,10 @@
   "searchButton.title": "Find metadata collection",
   "button.close": "Close",
   "modal.totalSelected": "Total selected: {count}",
-  "button.save": "Save"
+  "button.save": "Save",
+  "filter.mdSource": "Metadata source",
+  "filter.freeContent": "Free content",
+  "filter.permitted": "Usage permitted",
+  "filter.selected": "Selected",
+  "filter.assigned": "Assigned"
 }
