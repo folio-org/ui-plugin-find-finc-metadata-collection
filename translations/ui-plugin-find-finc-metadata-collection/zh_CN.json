@@ -4,5 +4,10 @@
     "searchButton.title": "查找元数据集合",
     "button.close": "关闭",
     "modal.totalSelected": "已选总数： {count}",
-    "button.save": "保存"
+    "button.save": "保存",
+    "filter.mdSource": "Metadata source",
+    "filter.freeContent": "Free content",
+    "filter.permitted": "Usage permitted",
+    "filter.selected": "Selected",
+    "filter.assigned": "Assigned"
 }

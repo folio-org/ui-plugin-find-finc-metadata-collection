@@ -4,5 +4,10 @@
     "searchButton.title": "ابحث عن مجموعة الميتاداتا",
     "button.close": "إغلاق",
     "modal.totalSelected": "إجمالي المحدد: {count}",
-    "button.save": "حفظ"
+    "button.save": "حفظ",
+    "filter.mdSource": "مصدر الميتاداتا",
+    "filter.freeContent": "محتوى مجاني",
+    "filter.permitted": "الاستخدام المسموح",
+    "filter.selected": "المحدد",
+    "filter.assigned": "معيّن"
 }
