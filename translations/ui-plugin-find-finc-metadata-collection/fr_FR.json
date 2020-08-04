@@ -4,5 +4,10 @@
     "searchButton.title": "Rechercher une collection de métadonnées",
     "button.close": "Fermer",
     "modal.totalSelected": "Total sélectionné: {count}",
-    "button.save": "Sauvegarder"
+    "button.save": "Sauvegarder",
+    "filter.mdSource": "Source des métadonnées",
+    "filter.freeContent": "Contenu gratuit",
+    "filter.permitted": "Utilisation autorisée",
+    "filter.selected": "Sélectionné",
+    "filter.assigned": "Attribué"
 }
