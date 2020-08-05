@@ -72,7 +72,6 @@ export default class CollectionsView extends React.Component {
     label: 230,
     mdSource: 230,
     permitted: 100,
-    filters: 100,
     freeContent: 100
   };
 
@@ -179,7 +178,7 @@ export default class CollectionsView extends React.Component {
     const sortOrder = query.sort || '';
     const checkedRecordsLength = this.state.checkedMap ? Object.keys(this.state.checkedMap).length : 0;
 
-    const visibleColumns = ['isChecked', 'label', 'mdSource', 'permitted', 'filters', 'freeContent'];
+    const visibleColumns = ['isChecked', 'label', 'mdSource', 'permitted', 'freeContent'];
 
     const footer = (
       <PaneFooter footerClass={css.paneFooter}>
@@ -226,7 +225,6 @@ export default class CollectionsView extends React.Component {
       label: 'Label',
       mdSource: 'MdSource',
       permitted: 'Permitted',
-      filters: 'Filters',
       freeContent: 'FreeContent'
     };
 
@@ -242,7 +240,6 @@ export default class CollectionsView extends React.Component {
       mdSource: col => _.get(col, 'mdSource.name', '-'),
       permitted: col => col.permitted,
       selected: col => col.selected,
-      filters: col => col.filters.join('; '),
       freeContent: col => col.freeContent,
     };
 
