@@ -2,7 +2,7 @@
     "meta.title": "plugin-find-finc-metadata-collection",
     "modal.label": "Select metadata collection",
     "searchButton.title": "Find metadata collection",
-    "button.close": "Close",
+    "button.close": "Chiudi",
     "modal.totalSelected": "Total selected: {count}",
     "button.save": "Save",
     "filter.mdSource": "Metadata source",
