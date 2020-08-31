@@ -4,6 +4,6 @@
 
 * Increment `@folio/stripes` to `v5.0` and `react-router` to `v5.2` (and, bugfix, move it to peer)
 
-## 1.0.0
-
-* New app created
+## [1.0.0](https://github.com/folio-org/ui-plugin-find-finc-metadata-collection/tree/v1.0.0) (2020-08-28)
+* New plugin module created.
+* Support selecting finc metadata-collections
