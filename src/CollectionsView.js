@@ -7,6 +7,7 @@ import {
   Checkbox,
   Icon,
   MultiColumnList,
+  NoValue,
   Pane,
   PaneFooter,
   PaneMenu,
@@ -237,7 +238,7 @@ export default class CollectionsView extends React.Component {
         />
       ),
       label: col => col.label,
-      mdSource: col => _.get(col, 'mdSource.name', '-'),
+      mdSource: col => _.get(col, 'mdSource.name', <NoValue />),
       permitted: col => col.permitted,
       selected: col => col.selected,
       freeContent: col => col.freeContent,
