@@ -85,7 +85,7 @@ class CollectionFilters extends React.Component {
         displayClearButton={groupFilters.length > 0}
         header={FilterAccordionHeader}
         id={`filter-accordion-${key}`}
-        label={<FormattedMessage id={`ui-plugin-find-finc-metadata-collection.filter.${key}`} />}
+        label={<FormattedMessage id={`ui-plugin-find-finc-metadata-collection.${key}`} />}
         onClearFilter={() => {
           this.props.filterHandlers.clearGroup(key);
         }}
@@ -122,7 +122,7 @@ class CollectionFilters extends React.Component {
         displayClearButton={mdSourceFilters.length > 0}
         header={FilterAccordionHeader}
         id="filter-accordion-mdSource"
-        label={<FormattedMessage id="ui-plugin-find-finc-metadata-collection.filter.mdSource" />}
+        label={<FormattedMessage id="ui-plugin-find-finc-metadata-collection.mdSource" />}
         onClearFilter={() => {
           this.props.filterHandlers.clearGroup('mdSource');
         }}

@@ -70,10 +70,10 @@ export default class CollectionsView extends React.Component {
 
   columnWidths = {
     isChecked: 40,
-    label: 230,
-    mdSource: 230,
-    permitted: 100,
-    freeContent: 100
+    label: 270,
+    mdSource: 270,
+    permitted: 150,
+    freeContent: 150
   };
 
   // fade in/out of filter-pane
@@ -223,10 +223,10 @@ export default class CollectionsView extends React.Component {
           type="checkbox"
         />
       ),
-      label: 'Label',
-      mdSource: 'MdSource',
-      permitted: 'Permitted',
-      freeContent: 'FreeContent'
+      label: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.label" />,
+      mdSource: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.mdSource" />,
+      permitted: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.permitted" />,
+      freeContent: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.freeContent" />,
     };
 
     const formatter = {
@@ -239,9 +239,9 @@ export default class CollectionsView extends React.Component {
       ),
       label: col => col.label,
       mdSource: col => _.get(col, 'mdSource.name', <NoValue />),
-      permitted: col => col.permitted,
+      permitted: col => _.upperFirst(col.permitted),
       selected: col => col.selected,
-      freeContent: col => col.freeContent,
+      freeContent: col => _.upperFirst(col.freeContent),
     };
 
     return (
