@@ -5,9 +5,10 @@
     "button.close": "关闭",
     "modal.totalSelected": "已选总数： {count}",
     "button.save": "保存",
-    "filter.mdSource": "元数据来源",
-    "filter.freeContent": "免费内容",
-    "filter.permitted": "允许使用",
-    "filter.selected": "已选",
-    "filter.assigned": "已分配"
+    "label": "Name",
+    "mdSource": "Metadata source",
+    "permitted": "Usage permitted",
+    "freeContent": "Free content",
+    "selected": "Selected",
+    "assigned": "Assigned"
 }
