@@ -5,9 +5,10 @@
     "button.close": "Закрыть",
     "modal.totalSelected": "Всего выбрано: {count}",
     "button.save": "Сохранить",
-    "filter.mdSource": "Metadata source",
-    "filter.freeContent": "Free content",
-    "filter.permitted": "Usage permitted",
-    "filter.selected": "Selected",
-    "filter.assigned": "Assigned"
+    "label": "Name",
+    "mdSource": "Metadata source",
+    "permitted": "Usage permitted",
+    "freeContent": "Free content",
+    "selected": "Selected",
+    "assigned": "Assigned"
 }

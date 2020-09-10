@@ -5,9 +5,10 @@
     "button.close": "Fechar",
     "modal.totalSelected": "Total selecionado: {count}",
     "button.save": "Salvar",
-    "filter.mdSource": "Fonte de metadados",
-    "filter.freeContent": "Conteúdo gratuito",
-    "filter.permitted": "Uso permitido",
-    "filter.selected": "Selecionado",
-    "filter.assigned": "Atribuído"
+    "label": "Nome",
+    "mdSource": "Fonte de metadados",
+    "permitted": "Uso permitido",
+    "freeContent": "Conteúdo gratuito",
+    "selected": "Selecionado",
+    "assigned": "Atribuído"
 }
