@@ -83,12 +83,30 @@ describe('UI-plugin-find-collection', function () {
         expect(findCollection.modal.searchField.isPresent).to.be.true;
       });
 
+      it('save button should be present', () => {
+        expect(findCollection.modal.saveButton.isPresent).to.be.true;
+      });
+
+      it('close button should be present', () => {
+        expect(findCollection.modal.closeButton.isPresent).to.be.true;
+      });
+
+      describe('filling in the searchField', function () {
+        beforeEach(async function () {
+          await findCollection.modal.searchField.fill('t');
+        });
+
+        it('activates the reset button', function () {
+          expect(findCollection.modal.resetAllBtn.isEnabled).to.be.true;
+        });
+      });
+
       describe('select a collection of results', function () {
         it('should return a set of results', function () {
           expect(findCollection.modal.instances().length).to.be.equal(COLLECTION_COUNT);
         });
 
-        describe('select collections', function () {
+        describe('select collections and save', function () {
           beforeEach(async function () {
             // selectedCollections = [];
             await findCollection.modal.instances(1).check();

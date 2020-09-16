@@ -41,9 +41,16 @@ import {
   });
 
   submitBtn = scoped('#collectionSubmitSearch');
-  resetAllBtn = scoped('#clickable-reset-all');
+  resetAllBtn = scoped('#clickable-reset-all', {
+    isEnabled: is(':not([disabled])'),
+    click: clickable()
+  });
 
-  saveButton = scoped('[data-test-find-records-modal-save]', {
+  saveButton = scoped('[data-test-find-collection-modal-save]', {
+    click: clickable()
+  });
+
+  closeButton = scoped('[data-test-find-collection-modal-close]', {
     click: clickable()
   });
 
