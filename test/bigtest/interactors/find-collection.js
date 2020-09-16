@@ -23,12 +23,14 @@ import {
 @interactor class PluginModalInteractor {
   static defaultScope = '#ModuleContainer';
   mdSourceFilter = scoped('section[id="filter-accordion-mdSource"]');
-  metadataAvailableFilter = scoped('section[id="filter-accordion-metadataAvailable"]');
-  usageRestrictedFilter = scoped('section[id="filter-accordion-usageRestricted"]');
   freeContentFilter = scoped('section[id="filter-accordion-freeContent"]');
+  permittedFilter = scoped('section[id="filter-accordion-permitted"]');
+  selectedFilter = scoped('section[id="filter-accordion-selected"]');
+  assignedFilter = scoped('section[id="filter-accordion-assigned"]');
 
   instances = collection('[role="rowgroup"] [role="row"]', {
     click: clickable('[role=gridcell]'),
+    check: clickable('input[type=checkbox]'),
   });
 
   searchField = scoped('#collectionSearchField', SearchField);
@@ -40,6 +42,11 @@ import {
 
   submitBtn = scoped('#collectionSubmitSearch');
   resetAllBtn = scoped('#clickable-reset-all');
+
+  saveButton = scoped('[data-test-find-records-modal-save]', {
+    click: clickable()
+  });
+
   noResultsDisplayed = isPresent('[data-test-find-collection-no-results-message]');
 }
 
