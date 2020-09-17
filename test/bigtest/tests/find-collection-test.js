@@ -96,6 +96,10 @@ describe('UI-plugin-find-collection', function () {
         expect(findCollection.modal.isPresent).to.be.true;
       });
 
+      it('focuses the search field', function () {
+        expect(findCollection.modal.searchField.isFocused).to.be.true;
+      });
+
       it('save button is enable', function () {
         expect(findCollection.modal.saveButton.isEnabled).to.be.true;
       });
@@ -128,10 +132,6 @@ describe('UI-plugin-find-collection', function () {
         expect(findCollection.modal.submitBtn.isPresent).to.be.true;
       });
 
-      it('search field should be present', () => {
-        expect(findCollection.modal.searchField.isPresent).to.be.true;
-      });
-
       it('close button should be present', () => {
         expect(findCollection.modal.closeButton.isPresent).to.be.true;
       });
@@ -153,6 +153,7 @@ describe('UI-plugin-find-collection', function () {
       describe('check filter and reset', function () {
         beforeEach(async function () {
           await findCollection.modal.clickFreeContentYesCheckbox();
+          await findCollection.modal.clickAssignedYesCheckbox();
           await findCollection.modal.resetAllBtn.click();
         });
 

@@ -29,6 +29,7 @@ import {
   assignedFilter = scoped('section[id="filter-accordion-assigned"]');
 
   clickFreeContentYesCheckbox = clickable('#clickable-filter-freeContent-yes');
+  clickAssignedYesCheckbox = clickable('#clickable-filter-assigned-yes');
 
   instances = collection('[role="rowgroup"] [role="row"]', {
     click: clickable('[role=gridcell]'),
