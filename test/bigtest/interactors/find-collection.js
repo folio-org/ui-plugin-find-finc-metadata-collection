@@ -28,6 +28,8 @@ import {
   selectedFilter = scoped('section[id="filter-accordion-selected"]');
   assignedFilter = scoped('section[id="filter-accordion-assigned"]');
 
+  clickFreeContentYesCheckbox = clickable('#clickable-filter-freeContent-yes');
+
   instances = collection('[role="rowgroup"] [role="row"]', {
     click: clickable('[role=gridcell]'),
     check: clickable('input[type=checkbox]'),
@@ -43,6 +45,10 @@ import {
   submitBtn = scoped('#collectionSubmitSearch');
   resetAllBtn = scoped('#clickable-reset-all', {
     isEnabled: is(':not([disabled])'),
+    click: clickable()
+  });
+
+  selectAll = scoped('[data-test-find-records-modal-select-all]', {
     click: clickable()
   });
 

@@ -96,8 +96,35 @@ describe('UI-plugin-find-collection', function () {
           await findCollection.modal.searchField.fill('t');
         });
 
+        it('activates the search button', function () {
+          expect(findCollection.modal.searchButton.isEnabled).to.be.true;
+        });
+
         it('activates the reset button', function () {
           expect(findCollection.modal.resetAllBtn.isEnabled).to.be.true;
+        });
+      });
+
+      describe('check filter and reset the search', function () {
+        beforeEach(async function () {
+          await findCollection.modal.clickFreeContentYesCheckbox();
+          await findCollection.modal.resetAllBtn.click();
+        });
+
+        it('should return a set of results', function () {
+          expect(findCollection.modal.instances().length).to.be.equal(COLLECTION_COUNT);
+        });
+      });
+
+      describe('select collections close modal', function () {
+        beforeEach(async function () {
+          await findCollection.modal.instances(1).check();
+          await findCollection.modal.instances(3).check();
+          await findCollection.modal.closeButton.click();
+        });
+
+        it('modal should closed', function () {
+          expect(closeHandled).to.be.false;
         });
       });
 

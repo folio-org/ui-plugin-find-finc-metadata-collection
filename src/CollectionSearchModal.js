@@ -17,7 +17,7 @@ class CollectionSearchModal extends Component {
       okapi: PropTypes.object.isRequired,
     }).isRequired,
     modalRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-    selectCollection: PropTypes.func,
+    // selectCollection: PropTypes.func,
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool,
     dataKey: PropTypes.string,
