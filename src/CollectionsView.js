@@ -375,10 +375,6 @@ CollectionsView.propTypes = Object.freeze({
   onNeedMoreData: PropTypes.func,
   queryGetter: PropTypes.func.isRequired,
   querySetter: PropTypes.func.isRequired,
-  collection: PropTypes.shape({
-    loaded: PropTypes.func,
-    totalCount: PropTypes.func
-  }),
   onClose: PropTypes.func.isRequired,
   filtered: PropTypes.arrayOf(PropTypes.object),
 });

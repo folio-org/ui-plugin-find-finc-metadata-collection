@@ -13,7 +13,7 @@ class PluginHarness extends React.Component {
         marginTop0
         searchButtonStyle="default"
         dataKey="collection"
-        selectRecordsModal={noop}
+        selectRecords={noop}
         visibleColumns={['isChecked', 'label', 'mdSource', 'permitted', 'freeContent']}
         {...this.props}
       >

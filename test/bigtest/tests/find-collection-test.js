@@ -14,6 +14,7 @@ const COLLECTION_COUNT = 25;
 const TINY_SOURCE_COUNT = 5;
 
 let closeHandled = false;
+// let collectionChosen = false;
 // let selectedCollections = [];
 
 describe('UI-plugin-find-collection', function () {
@@ -28,10 +29,12 @@ describe('UI-plugin-find-collection', function () {
   describe('rendering', function () {
     beforeEach(async function () {
       closeHandled = false;
+      // collectionChosen = false;
       await mount(
         <PluginHarness
           afterClose={() => { closeHandled = true; }}
-          // selectRecordsModal={(records) => { selectedCollections = records; }}
+          // selectRecords={(collectionIds) => { selectedCollections = collectionIds; }}
+          // collectionIds={() => { collectionChosen = true; }}
         />
       );
     });
@@ -105,7 +108,7 @@ describe('UI-plugin-find-collection', function () {
         });
       });
 
-      describe('check filter and reset the search', function () {
+      describe('check filter and reset', function () {
         beforeEach(async function () {
           await findCollection.modal.clickFreeContentYesCheckbox();
           await findCollection.modal.resetAllBtn.click();
@@ -145,9 +148,24 @@ describe('UI-plugin-find-collection', function () {
             expect(closeHandled).to.be.false;
           });
 
+          // it('calls the selectCollection callback', function () {
+          //   expect(collectionChosen).to.be.true;
+          // });
+
           // it('returns selected collections', function () {
           //   expect(selectedCollections.length).to.equal(2);
           // });
+        });
+
+        describe('select all collections and save', function () {
+          beforeEach(async function () {
+            await findCollection.modal.selectAll.click();
+            await findCollection.modal.saveButton.click();
+          });
+
+          it('modal should closed', function () {
+            expect(closeHandled).to.be.false;
+          });
         });
       });
     });

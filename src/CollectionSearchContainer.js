@@ -63,7 +63,6 @@ class CollectionSearchContainer extends React.Component {
     resources: PropTypes.object,
     stripes: PropTypes.shape({
       logger: PropTypes.object,
-      okapi: PropTypes.object,
     }),
     selectRecordsContainer: PropTypes.func,
   };
@@ -175,11 +174,7 @@ class CollectionSearchContainer extends React.Component {
           mdSources: _.get(this.props.resources, 'mdSources.records', []),
         }}
         filtered={filtered}
-        filterToCollections={_.get(
-          resources,
-          'filterToCollections.records',
-          []
-        )}
+        filterToCollections={_.get(resources, 'filterToCollections.records', [])}
         onClose={this.props.onClose}
         stripes={this.props.stripes}
         onSaveMultiple={this.passRecordsOut}
