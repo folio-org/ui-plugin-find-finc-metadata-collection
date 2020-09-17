@@ -40,9 +40,7 @@ class CollectionSearch extends Component {
   }
 
   renderTriggerButton() {
-    const {
-      renderTrigger,
-    } = this.props;
+    const { renderTrigger } = this.props;
 
     return renderTrigger({
       buttonRef: this.modalTrigger,
@@ -101,7 +99,6 @@ CollectionSearch.defaultProps = {
   buttonId: 'clickable-plugin-find-finc-metadata-collection',
   searchButtonStyle: 'primary noRightRadius',
   selectRecords: _.noop,
-  addCollections: _.noop,
 };
 
 CollectionSearch.propTypes = {
@@ -113,9 +110,7 @@ CollectionSearch.propTypes = {
   searchLabel: PropTypes.node,
   searchButtonStyle: PropTypes.string,
   marginBottom0: PropTypes.bool,
-  marginTop0: PropTypes.bool,
   selectRecords: PropTypes.func,
-  addCollections: PropTypes.func,
 };
 
 export default CollectionSearch;

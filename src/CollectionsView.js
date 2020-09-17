@@ -185,9 +185,10 @@ export default class CollectionsView extends React.Component {
       <PaneFooter footerClass={css.paneFooter}>
         <div className={css.pluginModalFooter}>
           <Button
+            className="left"
+            data-test-find-collection-modal-close
             marginBottom0
             onClick={this.props.onClose}
-            className="left"
           >
             <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.close" />
           </Button>
@@ -201,7 +202,7 @@ export default class CollectionsView extends React.Component {
               </div>
               <Button
                 buttonStyle="primary"
-                data-test-find-records-modal-save
+                data-test-find-collection-modal-save
                 disabled={!this.props.isEditable}
                 marginBottom0
                 onClick={this.saveMultiple}
@@ -374,10 +375,6 @@ CollectionsView.propTypes = Object.freeze({
   onNeedMoreData: PropTypes.func,
   queryGetter: PropTypes.func.isRequired,
   querySetter: PropTypes.func.isRequired,
-  collection: PropTypes.shape({
-    loaded: PropTypes.func,
-    totalCount: PropTypes.func
-  }),
   onClose: PropTypes.func.isRequired,
   filtered: PropTypes.arrayOf(PropTypes.object),
 });

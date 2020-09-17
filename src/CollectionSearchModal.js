@@ -12,15 +12,9 @@ class CollectionSearchModal extends Component {
     filterId: PropTypes.string,
     collectionIds: PropTypes.arrayOf(PropTypes.object),
     isEditable: PropTypes.bool,
-    stripes: PropTypes.shape({
-      connect: PropTypes.func.isRequired,
-      okapi: PropTypes.object.isRequired,
-    }).isRequired,
     modalRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-    selectCollection: PropTypes.func,
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool,
-    dataKey: PropTypes.string,
     selectRecordsModal: PropTypes.func,
   };
 
