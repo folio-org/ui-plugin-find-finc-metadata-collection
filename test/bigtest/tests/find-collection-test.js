@@ -14,8 +14,6 @@ const COLLECTION_COUNT = 25;
 const TINY_SOURCE_COUNT = 5;
 
 let closeHandled = false;
-// let collectionChosen = false;
-// let selectedCollections = [];
 
 describe('UI-plugin-find-collection', function () {
   const findCollection = new FindCollectionInteractor();
@@ -26,15 +24,13 @@ describe('UI-plugin-find-collection', function () {
     await this.server.createList('finc-select-metadata-collection', COLLECTION_COUNT);
   });
 
-  describe('rendering', function () {
+  describe('rendering plugin in view mode', function () {
     beforeEach(async function () {
       closeHandled = false;
-      // collectionChosen = false;
       await mount(
         <PluginHarness
           afterClose={() => { closeHandled = true; }}
-          // selectRecords={(collectionIds) => { selectedCollections = collectionIds; }}
-          // collectionIds={() => { collectionChosen = true; }}
+          isEditable={false}
         />
       );
     });
@@ -50,8 +46,58 @@ describe('UI-plugin-find-collection', function () {
         await findCollection.button.click();
       });
 
-      it('opens a modal', function () {
+      it('opens modal in view mode', function () {
         expect(findCollection.modal.isPresent).to.be.true;
+      });
+
+      it('save button is not enable', function () {
+        expect(findCollection.modal.saveButton.isEnabled).to.be.false;
+      });
+
+      it('should return a set of results', function () {
+        expect(findCollection.modal.instances().length).to.be.equal(COLLECTION_COUNT);
+      });
+
+      describe('close modal', function () {
+        beforeEach(async function () {
+          await findCollection.modal.closeButton.click();
+        });
+
+        it('modal should closed', function () {
+          expect(closeHandled).to.be.false;
+        });
+      });
+    });
+  });
+
+  describe('rendering plugin in edit mode', function () {
+    beforeEach(async function () {
+      closeHandled = false;
+      await mount(
+        <PluginHarness
+          afterClose={() => { closeHandled = true; }}
+          isEditable
+        />
+      );
+    });
+
+    it('renders button', function () {
+      expect(
+        findCollection.button.isPresent
+      ).to.be.true;
+    });
+
+    describe('click the button', function () {
+      beforeEach(async function () {
+        await findCollection.button.click();
+      });
+
+      it('opens modal in edit mode', function () {
+        expect(findCollection.modal.isPresent).to.be.true;
+      });
+
+      it('save button is enable', function () {
+        expect(findCollection.modal.saveButton.isEnabled).to.be.true;
       });
 
       it('mdSource filter should be present', () => {
@@ -84,10 +130,6 @@ describe('UI-plugin-find-collection', function () {
 
       it('search field should be present', () => {
         expect(findCollection.modal.searchField.isPresent).to.be.true;
-      });
-
-      it('save button should be present', () => {
-        expect(findCollection.modal.saveButton.isPresent).to.be.true;
       });
 
       it('close button should be present', () => {
@@ -138,7 +180,6 @@ describe('UI-plugin-find-collection', function () {
 
         describe('select collections and save', function () {
           beforeEach(async function () {
-            // selectedCollections = [];
             await findCollection.modal.instances(1).check();
             await findCollection.modal.instances(3).check();
             await findCollection.modal.saveButton.click();
@@ -147,14 +188,6 @@ describe('UI-plugin-find-collection', function () {
           it('modal should closed', function () {
             expect(closeHandled).to.be.false;
           });
-
-          // it('calls the selectCollection callback', function () {
-          //   expect(collectionChosen).to.be.true;
-          // });
-
-          // it('returns selected collections', function () {
-          //   expect(selectedCollections.length).to.equal(2);
-          // });
         });
 
         describe('select all collections and save', function () {

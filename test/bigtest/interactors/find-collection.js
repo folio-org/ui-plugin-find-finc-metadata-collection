@@ -44,8 +44,8 @@ import {
 
   submitBtn = scoped('#collectionSubmitSearch');
   resetAllBtn = scoped('#clickable-reset-all', {
-    isEnabled: is(':not([disabled])'),
-    click: clickable()
+    click: clickable(),
+    isEnabled: is(':not([disabled])')
   });
 
   selectAll = scoped('[data-test-find-records-modal-select-all]', {
@@ -53,7 +53,8 @@ import {
   });
 
   saveButton = scoped('[data-test-find-collection-modal-save]', {
-    click: clickable()
+    click: clickable(),
+    isEnabled: is(':not([disabled])'),
   });
 
   closeButton = scoped('[data-test-find-collection-modal-close]', {
