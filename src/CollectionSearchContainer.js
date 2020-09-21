@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { stripesConnect } from '@folio/stripes/core';
 import {
   makeQueryFunction,
@@ -54,17 +55,15 @@ class CollectionSearchContainer extends React.Component {
   });
 
   static propTypes = {
-    filterId: PropTypes.string,
     collectionIds: PropTypes.arrayOf(PropTypes.object),
     isEditable: PropTypes.bool,
     mutator: PropTypes.object,
-    onSelectRow: PropTypes.func,
     onClose: PropTypes.func.isRequired,
     resources: PropTypes.object,
+    selectRecordsContainer: PropTypes.func,
     stripes: PropTypes.shape({
       logger: PropTypes.object,
     }),
-    selectRecordsContainer: PropTypes.func,
   };
 
   static defaultProps = {
@@ -131,18 +130,12 @@ class CollectionSearchContainer extends React.Component {
     }
   };
 
-  onChangeIndex = (e) => {
-    const qindex = e.target.value;
-
-    this.props.mutator.query.update({ qindex });
-  };
-
   passRecordsOut = (records) => {
     this.props.selectRecordsContainer(records);
   };
 
   render() {
-    const { onSelectRow, resources } = this.props;
+    const { resources } = this.props;
     const contentData = _.get(resources, 'metadataCollections.records', []);
     const filterToCollections = _.get(resources, 'filterToCollections.records', []);
     if (this.collection) {
@@ -159,25 +152,18 @@ class CollectionSearchContainer extends React.Component {
 
     return (
       <CollectionsView
-        assignedStatus={this.state.assignedStatus}
-        filterId={this.props.filterId}
         collectionIds={this.props.collectionIds}
-        isEditable={this.props.isEditable}
         contentData={contentData}
-        onNeedMoreData={this.handleNeedMoreData}
-        onSelectRow={onSelectRow}
-        queryGetter={this.queryGetter}
-        querySetter={this.querySetter}
-        collection={this.collection}
-        onChangeIndex={this.onChangeIndex}
         filterData={{
           mdSources: _.get(this.props.resources, 'mdSources.records', []),
         }}
         filtered={filtered}
-        filterToCollections={_.get(resources, 'filterToCollections.records', [])}
+        isEditable={this.props.isEditable}
+        onNeedMoreData={this.handleNeedMoreData}
         onClose={this.props.onClose}
-        stripes={this.props.stripes}
         onSaveMultiple={this.passRecordsOut}
+        queryGetter={this.queryGetter}
+        querySetter={this.querySetter}
       />
     );
   }

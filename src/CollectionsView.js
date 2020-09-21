@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+
 import {
   Button,
   Checkbox,
@@ -38,17 +39,17 @@ const reduceCheckedRecords = (records, isChecked = false) => {
 
 export default class CollectionsView extends React.Component {
   static defaultProps = {
+    collectionIds: [],
     filterData: {},
     onSaveMultiple: _.noop,
-    collectionIds: [],
   }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      filterPaneIsVisible: true,
       checkedMap: {},
+      filterPaneIsVisible: true,
       isAllChecked: false,
     };
   }
@@ -170,8 +171,6 @@ export default class CollectionsView extends React.Component {
     this.props.onClose();
   };
 
-  isSelected = ({ collection }) => Boolean(this.state.checkedMap[collection.id]);
-
   render() {
     const { filtered, filterData, children, contentRef, onNeedMoreData, queryGetter, querySetter } = this.props;
     const { checkedMap, isAllChecked } = this.state;
@@ -233,9 +232,9 @@ export default class CollectionsView extends React.Component {
     const formatter = {
       isChecked: record => (
         <Checkbox
-          type="checkbox"
           checked={Boolean(checkedMap[record.id])}
           onChange={this.props.isEditable ? () => this.toggleRecord(record) : undefined}
+          type="checkbox"
         />
       ),
       label: col => col.label,
@@ -257,15 +256,15 @@ export default class CollectionsView extends React.Component {
         >
           {
             ({
-              searchValue,
-              getSearchHandlers,
-              onSubmitSearch,
-              onSort,
-              getFilterHandlers,
               activeFilters,
               filterChanged,
+              getFilterHandlers,
+              getSearchHandlers,
+              onSort,
+              onSubmitSearch,
+              resetAll,
               searchChanged,
-              resetAll
+              searchValue,
             }) => {
               const disableReset = () => (!filterChanged && !searchChanged);
 
@@ -327,10 +326,10 @@ export default class CollectionsView extends React.Component {
                   <Pane
                     defaultWidth="fill"
                     firstMenu={this.renderResultsFirstMenu(activeFilters)}
+                    footer={footer}
                     padContent={false}
                     paneTitle="Metadata Collections"
                     paneSub={this.renderResultsPaneSubtitle(filtered)}
-                    footer={footer}
                   >
                     <MultiColumnList
                       autosize
@@ -343,9 +342,7 @@ export default class CollectionsView extends React.Component {
                       onHeaderClick={this.props.isEditable ? onSort : undefined}
                       onNeedMoreData={onNeedMoreData}
                       onRowClick={undefined}
-                      sortDirection={
-                        sortOrder.startsWith('-') ? 'descending' : 'ascending'
-                      }
+                      sortDirection={sortOrder.startsWith('-') ? 'descending' : 'ascending'}
                       sortOrder={sortOrder.replace(/^-/, '').replace(/,.*/, '')}
                       totalCount={filtered ? filtered.length : 0}
                       virtualize
@@ -364,17 +361,17 @@ export default class CollectionsView extends React.Component {
 }
 
 CollectionsView.propTypes = Object.freeze({
-  onSaveMultiple: PropTypes.func,
-  collectionIds: PropTypes.arrayOf(PropTypes.object),
-  isEditable: PropTypes.bool,
   children: PropTypes.object,
+  collectionIds: PropTypes.arrayOf(PropTypes.object),
   contentRef: PropTypes.object,
   filterData: PropTypes.shape({
     mdSources: PropTypes.array,
   }),
+  filtered: PropTypes.arrayOf(PropTypes.object),
+  isEditable: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
   onNeedMoreData: PropTypes.func,
+  onSaveMultiple: PropTypes.func,
   queryGetter: PropTypes.func.isRequired,
   querySetter: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
-  filtered: PropTypes.arrayOf(PropTypes.object),
 });
