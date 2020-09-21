@@ -4,11 +4,11 @@
     "searchButton.title": "Find metadata collection",
     "button.close": "Close",
     "modal.totalSelected": "Total selected: {count}",
-    "button.save": "保存",
+    "button.save": "Save",
     "label": "Name",
     "mdSource": "Metadata source",
     "permitted": "Usage permitted",
     "freeContent": "Free content",
     "selected": "Selected",
-    "assigned": "割り当て済み"
+    "assigned": "Assigned"
 }

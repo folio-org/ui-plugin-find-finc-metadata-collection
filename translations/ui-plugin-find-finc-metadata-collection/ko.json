@@ -1,0 +1,14 @@
+{
+    "meta.title": "메타데이터 컬렉션 찾기 플러그인 ",
+    "modal.label": "메타데이터 컬렉션 선택",
+    "searchButton.title": "메타데이터 컬렉션 찾기",
+    "button.close": "닫기",
+    "modal.totalSelected": "선택한 총: {수}",
+    "button.save": "저장",
+    "label": "이름",
+    "mdSource": "메타데이터 소스",
+    "permitted": "통계 허용",
+    "freeContent": "무료 콘텐츠",
+    "selected": "선택된",
+    "assigned": "할당 됨"
+}
