@@ -310,7 +310,7 @@ export default class CollectionsView extends React.Component {
                     firstMenu={this.renderResultsFirstMenu(activeFilters)}
                     footer={footer}
                     padContent={false}
-                    paneTitle="Metadata Collections"
+                    paneTitle={<FormattedMessage id="ui-plugin-find-finc-metadata-collection.modal.paneTitle" />}
                     paneSub={this.renderResultsPaneSubtitle(filtered)}
                   >
                     <MultiColumnList
