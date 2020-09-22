@@ -332,7 +332,6 @@ export default class CollectionsView extends React.Component {
                       contentData={filtered}
                       formatter={formatter}
                       id="list-collections"
-                      // isEmptyMessage={<FormattedMessage id="ui-plugin-find-finc-metadata-collection.isEmptyMessage" />}
                       isEmptyMessage={this.renderNoResultsMessage()}
                       onHeaderClick={this.props.isEditable ? onSort : undefined}
                       onNeedMoreData={onNeedMoreData}
