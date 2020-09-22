@@ -166,7 +166,7 @@ export default class CollectionsView extends React.Component {
   }
 
   render() {
-    const { filtered, filterData, children, contentRef, onNeedMoreData, queryGetter, querySetter } = this.props;
+    const { filtered, filterData, contentRef, onNeedMoreData, queryGetter, querySetter } = this.props;
     const { checkedMap, isAllChecked } = this.state;
     const query = queryGetter() || {};
     const sortOrder = query.sort || '';
@@ -343,7 +343,6 @@ export default class CollectionsView extends React.Component {
                       visibleColumns={visibleColumns}
                     />
                   </Pane>
-                  {children}
                 </Paneset>
               );
             }
@@ -355,7 +354,6 @@ export default class CollectionsView extends React.Component {
 }
 
 CollectionsView.propTypes = Object.freeze({
-  children: PropTypes.object,
   collectionIds: PropTypes.arrayOf(PropTypes.object),
   contentRef: PropTypes.object,
   filterData: PropTypes.shape({
