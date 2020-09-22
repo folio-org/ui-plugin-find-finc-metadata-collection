@@ -19,7 +19,6 @@ import {
   CollapseFilterPaneButton,
   ExpandFilterPaneButton,
   SearchAndSortQuery,
-  SearchAndSortNoResultsMessage as NoResultsMessage,
 } from '@folio/stripes/smart-components';
 
 import CollectionFilters from './CollectionFilters';
@@ -83,23 +82,6 @@ export default class CollectionsView extends React.Component {
       filterPaneIsVisible: !curState.filterPaneIsVisible,
     }));
   }
-
-  renderIsEmptyMessage = (query, collection) => {
-    if (!collection) {
-      return 'no collection yet';
-    }
-
-    return (
-      <div data-test-collections-no-results-message>
-        <NoResultsMessage
-          collection={collection}
-          searchTerm={query.query || ''}
-          filterPaneIsVisible
-          toggleFilterPane={_.noop}
-        />
-      </div>
-    );
-  };
 
   // fade in / out the filter menu
   renderResultsFirstMenu = (filters) => {
