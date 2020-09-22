@@ -6,6 +6,7 @@
   "button.close": "Close",
   "modal.totalSelected": "Total selected: {count}",
   "button.save": "Save",
+  "isEmptyMessage": "No results found. Please check your filters.",
   "label": "Name",
   "mdSource": "Metadata source",
   "permitted": "Usage permitted",

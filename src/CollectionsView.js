@@ -23,6 +23,7 @@ import {
 
 import CollectionFilters from './CollectionFilters';
 import css from './CollectionSearch.css';
+import cssNoResults from './NoResultsMessage.css';
 
 const reduceCheckedRecords = (records, isChecked = false) => {
   const recordsReducer = (accumulator, record) => {
@@ -152,6 +153,17 @@ export default class CollectionsView extends React.Component {
     this.props.onSaveMultiple(selectedRecords);
     this.props.onClose();
   };
+
+  renderNoResultsMessage() {
+    return (
+      <div className={cssNoResults.noResultsMessage}>
+        <div className={cssNoResults.noResultsMessageLabelWrap}>
+          <Icon iconRootClass={cssNoResults.noResultsMessageIcon} icon="search" />
+          <span className={cssNoResults.noResultsMessageLabel}><FormattedMessage id="ui-plugin-find-finc-metadata-collection.isEmptyMessage" /></span>
+        </div>
+      </div>
+    );
+  }
 
   render() {
     const { filtered, filterData, children, contentRef, onNeedMoreData, queryGetter, querySetter } = this.props;
@@ -320,7 +332,8 @@ export default class CollectionsView extends React.Component {
                       contentData={filtered}
                       formatter={formatter}
                       id="list-collections"
-                      isEmptyMessage="no results"
+                      // isEmptyMessage={<FormattedMessage id="ui-plugin-find-finc-metadata-collection.isEmptyMessage" />}
+                      isEmptyMessage={this.renderNoResultsMessage()}
                       onHeaderClick={this.props.isEditable ? onSort : undefined}
                       onNeedMoreData={onNeedMoreData}
                       onRowClick={undefined}
