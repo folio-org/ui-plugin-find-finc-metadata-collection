@@ -1,10 +1,12 @@
 {
   "meta.title": "plugin-find-finc-metadata-collection",
   "modal.label": "Select metadata collection",
+  "modal.paneTitle": "Metadata collections",
   "searchButton.title": "Find metadata collection",
   "button.close": "Close",
   "modal.totalSelected": "Total selected: {count}",
   "button.save": "Save",
+  "isEmptyMessage": "No results found. Please check your filters.",
   "label": "Name",
   "mdSource": "Metadata source",
   "permitted": "Usage permitted",

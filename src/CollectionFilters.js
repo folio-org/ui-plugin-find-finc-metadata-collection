@@ -86,9 +86,7 @@ class CollectionFilters extends React.Component {
         header={FilterAccordionHeader}
         id={`filter-accordion-${key}`}
         label={<FormattedMessage id={`ui-plugin-find-finc-metadata-collection.${key}`} />}
-        onClearFilter={() => {
-          this.props.filterHandlers.clearGroup(key);
-        }}
+        onClearFilter={() => { this.props.filterHandlers.clearGroup(key); }}
         separator={false}
         {...props}
       >

@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+
 import { Modal } from '@folio/stripes/components';
 
 import CollectionSearchContainer from './CollectionSearchContainer';
@@ -9,8 +10,8 @@ import css from './CollectionSearch.css';
 
 class CollectionSearchModal extends Component {
   static propTypes = {
-    filterId: PropTypes.string,
     collectionIds: PropTypes.arrayOf(PropTypes.object),
+    filterId: PropTypes.string,
     isEditable: PropTypes.bool,
     modalRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
     onClose: PropTypes.func.isRequired,
@@ -36,23 +37,21 @@ class CollectionSearchModal extends Component {
     return (
       <Modal
         contentClass={css.modalContent}
+        dismissible
         enforceFocus={false}
+        label={<FormattedMessage id="ui-plugin-find-finc-metadata-collection.modal.label" />}
         onClose={this.props.onClose}
-        size="large"
         open={this.props.open}
         ref={this.modalRef}
-        label={
-          <FormattedMessage id="ui-plugin-find-finc-metadata-collection.modal.label" />
-        }
-        dismissible
+        size="large"
       >
         <CollectionSearchContainer
-          {...this.props}
-          filterId={this.props.filterId}
           collectionIds={this.props.collectionIds}
+          filterId={this.props.filterId}
           isEditable={this.props.isEditable}
           onClose={this.props.onClose}
           selectRecordsContainer={this.passRecordsOut}
+          {...this.props}
         />
       </Modal>
     );

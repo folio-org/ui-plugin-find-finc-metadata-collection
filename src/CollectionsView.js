@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+
 import {
   Button,
   Checkbox,
@@ -18,11 +19,11 @@ import {
   CollapseFilterPaneButton,
   ExpandFilterPaneButton,
   SearchAndSortQuery,
-  SearchAndSortNoResultsMessage as NoResultsMessage,
 } from '@folio/stripes/smart-components';
 
 import CollectionFilters from './CollectionFilters';
 import css from './CollectionSearch.css';
+import cssNoResults from './NoResultsMessage.css';
 
 const reduceCheckedRecords = (records, isChecked = false) => {
   const recordsReducer = (accumulator, record) => {
@@ -38,17 +39,17 @@ const reduceCheckedRecords = (records, isChecked = false) => {
 
 export default class CollectionsView extends React.Component {
   static defaultProps = {
+    collectionIds: [],
     filterData: {},
     onSaveMultiple: _.noop,
-    collectionIds: [],
   }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      filterPaneIsVisible: true,
       checkedMap: {},
+      filterPaneIsVisible: true,
       isAllChecked: false,
     };
   }
@@ -82,23 +83,6 @@ export default class CollectionsView extends React.Component {
       filterPaneIsVisible: !curState.filterPaneIsVisible,
     }));
   }
-
-  renderIsEmptyMessage = (query, collection) => {
-    if (!collection) {
-      return 'no collection yet';
-    }
-
-    return (
-      <div data-test-collections-no-results-message>
-        <NoResultsMessage
-          collection={collection}
-          searchTerm={query.query || ''}
-          filterPaneIsVisible
-          toggleFilterPane={_.noop}
-        />
-      </div>
-    );
-  };
 
   // fade in / out the filter menu
   renderResultsFirstMenu = (filters) => {
@@ -170,10 +154,19 @@ export default class CollectionsView extends React.Component {
     this.props.onClose();
   };
 
-  isSelected = ({ collection }) => Boolean(this.state.checkedMap[collection.id]);
+  renderNoResultsMessage() {
+    return (
+      <div className={cssNoResults.noResultsMessage}>
+        <div className={cssNoResults.noResultsMessageLabelWrap}>
+          <Icon iconRootClass={cssNoResults.noResultsMessageIcon} icon="search" />
+          <span className={cssNoResults.noResultsMessageLabel}><FormattedMessage id="ui-plugin-find-finc-metadata-collection.isEmptyMessage" /></span>
+        </div>
+      </div>
+    );
+  }
 
   render() {
-    const { filtered, filterData, children, contentRef, onNeedMoreData, queryGetter, querySetter } = this.props;
+    const { filtered, filterData, contentRef, onNeedMoreData, queryGetter, querySetter } = this.props;
     const { checkedMap, isAllChecked } = this.state;
     const query = queryGetter() || {};
     const sortOrder = query.sort || '';
@@ -233,9 +226,9 @@ export default class CollectionsView extends React.Component {
     const formatter = {
       isChecked: record => (
         <Checkbox
-          type="checkbox"
           checked={Boolean(checkedMap[record.id])}
           onChange={this.props.isEditable ? () => this.toggleRecord(record) : undefined}
+          type="checkbox"
         />
       ),
       label: col => col.label,
@@ -257,15 +250,15 @@ export default class CollectionsView extends React.Component {
         >
           {
             ({
-              searchValue,
-              getSearchHandlers,
-              onSubmitSearch,
-              onSort,
-              getFilterHandlers,
               activeFilters,
               filterChanged,
+              getFilterHandlers,
+              getSearchHandlers,
+              onSort,
+              onSubmitSearch,
+              resetAll,
               searchChanged,
-              resetAll
+              searchValue,
             }) => {
               const disableReset = () => (!filterChanged && !searchChanged);
 
@@ -327,10 +320,10 @@ export default class CollectionsView extends React.Component {
                   <Pane
                     defaultWidth="fill"
                     firstMenu={this.renderResultsFirstMenu(activeFilters)}
-                    padContent={false}
-                    paneTitle="Metadata Collections"
-                    paneSub={this.renderResultsPaneSubtitle(filtered)}
                     footer={footer}
+                    padContent={false}
+                    paneTitle={<FormattedMessage id="ui-plugin-find-finc-metadata-collection.modal.paneTitle" />}
+                    paneSub={this.renderResultsPaneSubtitle(filtered)}
                   >
                     <MultiColumnList
                       autosize
@@ -339,20 +332,17 @@ export default class CollectionsView extends React.Component {
                       contentData={filtered}
                       formatter={formatter}
                       id="list-collections"
-                      isEmptyMessage="no results"
+                      isEmptyMessage={this.renderNoResultsMessage()}
                       onHeaderClick={this.props.isEditable ? onSort : undefined}
                       onNeedMoreData={onNeedMoreData}
                       onRowClick={undefined}
-                      sortDirection={
-                        sortOrder.startsWith('-') ? 'descending' : 'ascending'
-                      }
+                      sortDirection={sortOrder.startsWith('-') ? 'descending' : 'ascending'}
                       sortOrder={sortOrder.replace(/^-/, '').replace(/,.*/, '')}
                       totalCount={filtered ? filtered.length : 0}
                       virtualize
                       visibleColumns={visibleColumns}
                     />
                   </Pane>
-                  {children}
                 </Paneset>
               );
             }
@@ -364,17 +354,16 @@ export default class CollectionsView extends React.Component {
 }
 
 CollectionsView.propTypes = Object.freeze({
-  onSaveMultiple: PropTypes.func,
   collectionIds: PropTypes.arrayOf(PropTypes.object),
-  isEditable: PropTypes.bool,
-  children: PropTypes.object,
   contentRef: PropTypes.object,
   filterData: PropTypes.shape({
     mdSources: PropTypes.array,
   }),
+  filtered: PropTypes.arrayOf(PropTypes.object),
+  isEditable: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
   onNeedMoreData: PropTypes.func,
+  onSaveMultiple: PropTypes.func,
   queryGetter: PropTypes.func.isRequired,
   querySetter: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
-  filtered: PropTypes.arrayOf(PropTypes.object),
 });
