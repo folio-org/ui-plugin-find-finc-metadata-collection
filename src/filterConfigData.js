@@ -1,6 +1,5 @@
 const filterConfig = [
   {
-    label: 'Selected',
     name: 'selected',
     cql: 'selected',
     values: [
@@ -9,7 +8,6 @@ const filterConfig = [
     ],
   },
   {
-    label: 'Free Content?',
     name: 'freeContent',
     cql: 'freeContent',
     values: [
@@ -19,7 +17,6 @@ const filterConfig = [
     ],
   },
   {
-    label: 'Permitted',
     name: 'permitted',
     cql: 'permitted',
     values: [
@@ -28,7 +25,6 @@ const filterConfig = [
     ],
   },
   {
-    label: 'Assigned',
     name: 'assigned',
     cql: 'assigned',
     values: [
@@ -37,7 +33,6 @@ const filterConfig = [
     ],
   },
   {
-    label: 'Source',
     name: 'mdSource',
     cql: 'mdSource',
     values: [],
