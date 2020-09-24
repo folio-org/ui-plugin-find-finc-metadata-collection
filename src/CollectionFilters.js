@@ -144,11 +144,11 @@ class CollectionFilters extends React.Component {
   render() {
     return (
       <AccordionSet>
-        {this.renderMetadataSourceFilter('mdSource', 'Source')}
-        {this.renderCheckboxFilter('freeContent', 'Free content')}
-        {this.renderCheckboxFilter('permitted', 'Usage permitted')}
-        {this.renderCheckboxFilter('selected', 'Selected')}
-        {this.renderCheckboxFilter('assigned', 'Assigned')}
+        {this.renderMetadataSourceFilter()}
+        {this.renderCheckboxFilter('freeContent')}
+        {this.renderCheckboxFilter('permitted')}
+        {this.renderCheckboxFilter('selected')}
+        {this.renderCheckboxFilter('assigned')}
       </AccordionSet>
     );
   }
