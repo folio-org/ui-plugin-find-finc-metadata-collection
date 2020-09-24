@@ -10,5 +10,7 @@
     "permitted": "الاستخدام المسموح",
     "freeContent": "محتوى مجاني",
     "selected": "المحدد",
-    "assigned": "معيّن"
+    "assigned": "معيّن",
+    "modal.paneTitle": "مجموعات الميتاداتا",
+    "isEmptyMessage": "لم يتم العثور على نتائج. يرجى التحقق من المنقحات."
 }

@@ -10,5 +10,7 @@
     "permitted": "Uso permitido",
     "freeContent": "Conteúdo gratuito",
     "selected": "Selecionado",
-    "assigned": "Atribuído"
+    "assigned": "Atribuído",
+    "modal.paneTitle": "Coleções de metadados",
+    "isEmptyMessage": "Nenhum resultado encontrado. Por favor, verifique seus filtros."
 }
