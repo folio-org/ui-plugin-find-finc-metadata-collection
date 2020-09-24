@@ -3,12 +3,14 @@
     "modal.label": "Select metadata collection",
     "searchButton.title": "Find metadata collection",
     "button.close": "Close",
-    "modal.totalSelected": "Total selected: {count}",
+    "modal.totalSelected": "選択済合計： {count}",
     "button.save": "保存",
     "label": "Name",
     "mdSource": "Metadata source",
     "permitted": "Usage permitted",
     "freeContent": "Free content",
     "selected": "Selected",
-    "assigned": "割り当て済み"
+    "assigned": "割り当て済み",
+    "modal.paneTitle": "Metadata collections",
+    "isEmptyMessage": "No results found. Please check your filters."
 }

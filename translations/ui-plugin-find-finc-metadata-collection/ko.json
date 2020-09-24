@@ -10,5 +10,7 @@
     "permitted": "통계 허용",
     "freeContent": "무료 콘텐츠",
     "selected": "선택된",
-    "assigned": "할당 됨"
+    "assigned": "할당 됨",
+    "modal.paneTitle": "Metadata collections",
+    "isEmptyMessage": "No results found. Please check your filters."
 }
