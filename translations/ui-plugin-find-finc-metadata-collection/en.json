@@ -12,5 +12,8 @@
   "permitted": "Usage permitted",
   "freeContent": "Free content",
   "selected": "Selected",
-  "assigned": "Assigned"
+  "assigned": "Assigned",
+  "filterValue.yes": "Yes",
+  "filterValue.no": "No",
+  "filterValue.undetermined": "Undetermined"
 }
