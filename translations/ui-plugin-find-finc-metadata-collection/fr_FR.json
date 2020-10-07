@@ -12,5 +12,8 @@
     "selected": "Sélectionné",
     "assigned": "Attribué",
     "modal.paneTitle": "Metadata collections",
-    "isEmptyMessage": "Aucun résultat trouvé. Merci de vérifier vos filtres."
+    "isEmptyMessage": "Aucun résultat trouvé. Merci de vérifier vos filtres.",
+    "filterValue.yes": "Oui",
+    "filterValue.no": "Non",
+    "filterValue.undetermined": "Indéterminé"
 }

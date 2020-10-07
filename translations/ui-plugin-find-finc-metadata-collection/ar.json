@@ -12,5 +12,8 @@
     "selected": "المحدد",
     "assigned": "معيّن",
     "modal.paneTitle": "مجموعات الميتاداتا",
-    "isEmptyMessage": "لم يتم العثور على نتائج. يرجى التحقق من المنقحات."
+    "isEmptyMessage": "لم يتم العثور على نتائج. يرجى التحقق من المنقحات.",
+    "filterValue.yes": "نعم",
+    "filterValue.no": "لا",
+    "filterValue.undetermined": "غير محدد"
 }
