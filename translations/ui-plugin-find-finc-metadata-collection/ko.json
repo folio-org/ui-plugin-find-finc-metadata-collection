@@ -12,5 +12,8 @@
     "selected": "선택된",
     "assigned": "할당 됨",
     "modal.paneTitle": "Metadata collections",
-    "isEmptyMessage": "No results found. Please check your filters."
+    "isEmptyMessage": "No results found. Please check your filters.",
+    "filterValue.yes": "Yes",
+    "filterValue.no": "No",
+    "filterValue.undetermined": "Undetermined"
 }
