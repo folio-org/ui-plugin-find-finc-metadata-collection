@@ -13,7 +13,7 @@
     "assigned": "Atribuído",
     "modal.paneTitle": "Coleções de metadados",
     "isEmptyMessage": "Nenhum resultado encontrado. Por favor, verifique seus filtros.",
-    "filterValue.yes": "Yes",
-    "filterValue.no": "No",
-    "filterValue.undetermined": "Undetermined"
+    "filterValue.yes": "Sim",
+    "filterValue.no": "Não",
+    "filterValue.undetermined": "Indeterminado"
 }
