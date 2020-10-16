@@ -11,9 +11,9 @@
     "freeContent": "Free content",
     "selected": "Selected",
     "assigned": "Assigned",
-    "modal.paneTitle": "Metadata collections",
-    "isEmptyMessage": "No results found. Please check your filters.",
-    "filterValue.yes": "Yes",
+    "modal.paneTitle": "Colecciones de metadatos",
+    "isEmptyMessage": "No se han encontrado resultados. Por favor revise sus filtros.",
+    "filterValue.yes": "Sí",
     "filterValue.no": "No",
-    "filterValue.undetermined": "Undetermined"
+    "filterValue.undetermined": "Indeterminado"
 }
