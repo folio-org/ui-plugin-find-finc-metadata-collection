@@ -13,7 +13,7 @@
     "assigned": "已分配",
     "modal.paneTitle": "元数据集合",
     "isEmptyMessage": "未找到结果。请检查筛选条件。",
-    "filterValue.yes": "Yes",
-    "filterValue.no": "No",
-    "filterValue.undetermined": "Undetermined"
+    "filterValue.yes": "是",
+    "filterValue.no": "否",
+    "filterValue.undetermined": "待定"
 }
