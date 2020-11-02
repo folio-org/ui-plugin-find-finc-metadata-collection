@@ -2,7 +2,7 @@
     "meta.title": "plugin-find-finc-metadata-collection",
     "modal.label": "Select metadata collection",
     "searchButton.title": "Find metadata collection",
-    "button.close": "Close",
+    "button.close": "閉じる",
     "modal.totalSelected": "選択済合計： {count}",
     "button.save": "保存",
     "label": "Name",
