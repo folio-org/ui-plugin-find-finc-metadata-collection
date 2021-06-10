@@ -20,7 +20,8 @@
   },
   "scripts": {
     "test": "stripes test karma",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-plugin-find-finc-metadata-collection ./translations/ui-plugin-find-finc-metadata-collection/compiled"
   },
   "devDependencies": {
     "@bigtest/interactor": "^0.9.2",
@@ -30,6 +31,7 @@
     "@folio/stripes-components": "^9.0.0",
     "@folio/stripes-core": "^7.0.0",
     "@folio/stripes-smart-components": "^6.0.0",
+    "@formatjs/cli": "^4.2.17",
     "babel-eslint": "^9.0.0",
     "chai": "^4.2.0",
     "core-js": "^3.6.4",
