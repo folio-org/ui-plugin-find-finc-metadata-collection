@@ -1,6 +1,6 @@
 {
   "name": "@folio/plugin-find-finc-metadata-collection",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Finder plugin for finc metadata collections",
   "repository": "folio-org/ui-plugin-find-finc-metadata-collection",
   "publishConfig": {
