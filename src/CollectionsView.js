@@ -185,25 +185,25 @@ export default class CollectionsView extends React.Component {
           >
             <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.close" />
           </Button>
-          {(
-            <React.Fragment>
-              <div>
-                <FormattedMessage
-                  id="ui-plugin-find-finc-metadata-collection.modal.totalSelected"
-                  values={{ count: checkedRecordsLength }}
-                />
-              </div>
-              <Button
-                buttonStyle="primary"
-                data-test-find-collection-modal-save
-                disabled={!this.props.isEditable}
-                marginBottom0
-                onClick={this.saveMultiple}
-              >
-                <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.save" />
-              </Button>
-            </React.Fragment>
-          )}
+          (
+          <>
+            <div>
+              <FormattedMessage
+                id="ui-plugin-find-finc-metadata-collection.modal.totalSelected"
+                values={{ count: checkedRecordsLength }}
+              />
+            </div>
+            <Button
+              buttonStyle="primary"
+              data-test-find-collection-modal-save
+              disabled={!this.props.isEditable}
+              marginBottom0
+              onClick={this.saveMultiple}
+            >
+              <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.save" />
+            </Button>
+          </ >
+          )
         </div>
       </PaneFooter>
     );
