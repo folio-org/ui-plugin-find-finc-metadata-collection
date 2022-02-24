@@ -66,7 +66,7 @@ class CollectionSearch extends Component {
     } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         {renderTrigger ?
           this.renderTriggerButton() :
           <FormattedMessage id="ui-plugin-find-finc-metadata-collection.searchButton.title">
@@ -94,7 +94,7 @@ class CollectionSearch extends Component {
           selectRecordsModal={this.passRecordsOut}
           {...this.props}
         />
-      </React.Fragment>
+      </ >
     );
   }
 }
