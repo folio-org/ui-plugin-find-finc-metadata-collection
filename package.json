@@ -11,7 +11,9 @@
     "node": ">=6.0.0"
   },
   "stripes": {
-    "actsAs": ["plugin"],
+    "actsAs": [
+      "plugin"
+    ],
     "pluginType": "find-finc-metadata-collection",
     "displayName": "ui-plugin-find-finc-metadata-collection.meta.title",
     "okapiInterfaces": {
@@ -24,19 +26,21 @@
     "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-plugin-find-finc-metadata-collection ./translations/ui-plugin-find-finc-metadata-collection/compiled"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/eslint-parser": "^7.17.0",
     "@bigtest/interactor": "^0.9.2",
     "@bigtest/mocha": "^0.5.2",
-    "@folio/eslint-config-stripes": "^5.2.0",
+    "@folio/eslint-config-stripes": "^6.1.0",
     "@folio/stripes": "^7.0.0",
+    "@folio/stripes-cli": "^2.4.0",
     "@folio/stripes-components": "^10.0.0",
     "@folio/stripes-core": "^8.0.0",
-    "@folio/stripes-cli": "^2.4.0",
     "@folio/stripes-smart-components": "^7.0.0",
     "@formatjs/cli": "^4.2.17",
-    "babel-eslint": "^9.0.0",
     "chai": "^4.2.0",
     "core-js": "^3.6.4",
-    "eslint": "^6.2.1",
+    "eslint": "^7.32.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "faker": "^4.1.0",
     "inflected": "^2.0.4",
     "miragejs": "^0.1.40",
@@ -49,9 +53,9 @@
     "regenerator-runtime": "^0.13.3"
   },
   "dependencies": {
-    "prop-types": "^15.6.0",
+    "dom-helpers": "^3.4.0",
     "lodash": "^4.17.4",
-    "dom-helpers":"^3.4.0"
+    "prop-types": "^15.6.0"
   },
   "peerDependencies": {
     "@folio/stripes": "^7.0.0",
