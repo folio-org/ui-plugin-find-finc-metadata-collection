@@ -355,7 +355,7 @@ CollectionsView.propTypes = Object.freeze({
   collectionIds: PropTypes.arrayOf(PropTypes.object),
   contentRef: PropTypes.object,
   filterData: PropTypes.shape({
-    mdSources: PropTypes.array,
+    mdSources: PropTypes.arrayOf(PropTypes.object),
   }),
   filtered: PropTypes.arrayOf(PropTypes.object),
   isEditable: PropTypes.bool,
