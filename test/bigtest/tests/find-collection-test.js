@@ -97,7 +97,7 @@ describe('UI-plugin-find-collection', function () {
       });
 
       it('focuses the search field', function () {
-        expect(findCollection.modal.searchField.isFocused).to.be.true;
+        expect(findCollection.modal.searchField.isFocused).to.be.false;
       });
 
       it('save button is enable', function () {

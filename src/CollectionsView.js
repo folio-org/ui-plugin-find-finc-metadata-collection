@@ -185,7 +185,6 @@ export default class CollectionsView extends React.Component {
           >
             <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.close" />
           </Button>
-          (
           <>
             <div>
               <FormattedMessage
@@ -203,7 +202,6 @@ export default class CollectionsView extends React.Component {
               <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.save" />
             </Button>
           </ >
-          )
         </div>
       </PaneFooter>
     );
@@ -357,7 +355,7 @@ CollectionsView.propTypes = Object.freeze({
   collectionIds: PropTypes.arrayOf(PropTypes.object),
   contentRef: PropTypes.object,
   filterData: PropTypes.shape({
-    mdSources: PropTypes.array,
+    mdSources: PropTypes.arrayOf(PropTypes.object),
   }),
   filtered: PropTypes.arrayOf(PropTypes.object),
   isEditable: PropTypes.bool,
