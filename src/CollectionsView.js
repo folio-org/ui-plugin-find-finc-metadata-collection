@@ -185,7 +185,6 @@ export default class CollectionsView extends React.Component {
           >
             <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.close" />
           </Button>
-          (
           <>
             <div>
               <FormattedMessage
@@ -203,7 +202,6 @@ export default class CollectionsView extends React.Component {
               <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.save" />
             </Button>
           </ >
-          )
         </div>
       </PaneFooter>
     );
