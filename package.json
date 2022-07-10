@@ -23,6 +23,7 @@
   "scripts": {
     "test": "stripes test karma",
     "lint": "eslint .",
+    "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
     "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-plugin-find-finc-metadata-collection ./translations/ui-plugin-find-finc-metadata-collection/compiled"
   },
   "devDependencies": {
