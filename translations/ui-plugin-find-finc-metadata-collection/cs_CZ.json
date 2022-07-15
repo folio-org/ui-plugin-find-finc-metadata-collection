@@ -1,7 +1,7 @@
 {
     "meta.title": "plugin vyhledat kolekci metadat fin.zdrojů",
     "modal.label": "Select metadata collection",
-    "searchButton.title": "Find metadata collection",
+    "searchButton.title": "Vyhledat kolekci metadat",
     "button.close": "Close",
     "modal.totalSelected": "Total selected: {count}",
     "button.save": "Save",
