@@ -5,15 +5,15 @@
     "button.close": "Zavřít",
     "modal.totalSelected": "Total selected: {count}",
     "button.save": "Uložit",
-    "label": "Name",
+    "label": "Název",
     "mdSource": "Metadata source",
     "permitted": "Usage permitted",
-    "freeContent": "Free content",
+    "freeContent": "Bezplatný obsah",
     "selected": "Selected",
     "assigned": "Přiřazeno",
     "modal.paneTitle": "Metadata collections",
-    "isEmptyMessage": "No results found. Please check your filters.",
-    "filterValue.yes": "Yes",
-    "filterValue.no": "No",
-    "filterValue.undetermined": "Undetermined"
+    "isEmptyMessage": "Nebyly nalezeny žádné výsledky. Zkontrolujte prosím filtry.",
+    "filterValue.yes": "Ano",
+    "filterValue.no": "Ne",
+    "filterValue.undetermined": "Neurčeno"
 }
