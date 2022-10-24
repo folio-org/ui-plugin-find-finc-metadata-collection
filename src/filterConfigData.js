@@ -5,6 +5,7 @@ const filterConfig = [
   {
     name: 'selected',
     cql: 'selected',
+    operator: '=',
     values: [
       { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.yes" />, cql: 'yes' },
       { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.no" />, cql: 'no' }
@@ -22,6 +23,7 @@ const filterConfig = [
   {
     name: 'permitted',
     cql: 'permitted',
+    operator: '=',
     values: [
       { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.yes" />, cql: 'yes' },
       { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.no" />, cql: 'no' }
@@ -37,7 +39,8 @@ const filterConfig = [
   },
   {
     name: 'mdSource',
-    cql: 'mdSource',
+    cql: 'mdSource.id',
+    operator: '==',
     values: [],
   }
 ];
