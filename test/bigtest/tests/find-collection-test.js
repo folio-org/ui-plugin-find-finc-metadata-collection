@@ -96,12 +96,8 @@ describe('UI-plugin-find-collection', function () {
         expect(findCollection.modal.isPresent).to.be.true;
       });
 
-      it('focuses the search field', function () {
-        expect(findCollection.modal.searchField.isFocused).to.be.false;
-      });
-
-      it('save button is enable', function () {
-        expect(findCollection.modal.saveButton.isEnabled).to.be.true;
+      it('save button is not enable', function () {
+        expect(findCollection.modal.saveButton.isEnabled).to.be.false;
       });
 
       it('mdSource filter should be present', () => {

@@ -50,7 +50,13 @@ class CollectionSearchContainer extends React.Component {
       path: 'finc-select/filters/!{filterId}/collections',
       records: 'collectionIds',
     },
-    query: { initialValue: {} },
+    query: {
+      initialValue: {
+        query: '',
+        filters: 'permitted.yes,selected.yes',
+        sort: ''
+      }
+    },
     resultCount: { initialValue: INITIAL_RESULT_COUNT },
   });
 
