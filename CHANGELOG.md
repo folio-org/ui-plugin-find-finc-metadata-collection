@@ -1,5 +1,9 @@
 # Change history for ui-plugin-find-finc-metadata-collection
 
+## [4.1.0](https://github.com/folio-org/ui-plugin-find-finc-metadata-collection/tree/v4.1.0) (2022-11-15)
+* Filter in collections-plugin doesn't work correctly (UIFC-285)
+* Replace babel eslint (UIFC-271)
+
 ## [4.0.0](https://github.com/folio-org/ui-plugin-find-finc-metadata-collection/tree/v4.0.0) (2021-10-04)
 * Increment stripes to v7 (UIFC-252)
 
