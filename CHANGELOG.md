@@ -1,5 +1,8 @@
 # Change history for ui-plugin-find-finc-metadata-collection
 
+## 5.0.0 (IN PROGRESS)
+* Bump Stripes to v8 and drop unneeded `react-redux`, `redux` ([UIFC-292](https://issues.folio.org/browse/UIFC-292))
+
 ## [4.1.0](https://github.com/folio-org/ui-plugin-find-finc-metadata-collection/tree/v4.1.0) (2022-11-15)
 * Filter in collections-plugin doesn't work correctly (UIFC-285)
 * Replace babel eslint (UIFC-271)
