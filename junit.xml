@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="13" failures="0" errors="0" time="5.39">
+  <testsuite name="CollectionSearch component" errors="0" failures="0" skipped="0" timestamp="2023-02-14T16:20:46" time="2.578" tests="3">
+    <testcase classname="CollectionSearch component should display search collection button" name="CollectionSearch component should display search collection button" time="0.034">
+    </testcase>
+    <testcase classname="CollectionSearch component should render trigger button" name="CollectionSearch component should render trigger button" time="0.004">
+    </testcase>
+    <testcase classname="CollectionSearch component should open collection search modal" name="CollectionSearch component should open collection search modal" time="0.023">
+    </testcase>
+  </testsuite>
+  <testsuite name="CollectionSearchModal component" errors="0" failures="0" skipped="0" timestamp="2023-02-14T16:20:46" time="2.661" tests="4">
+    <testcase classname="CollectionSearchModal component should display collection search modal" name="CollectionSearchModal component should display collection search modal" time="0.086">
+    </testcase>
+    <testcase classname="CollectionSearchModal component should not display collection search modal" name="CollectionSearchModal component should not display collection search modal" time="0.004">
+    </testcase>
+    <testcase classname="CollectionSearchModal component Close collection search modal should close collection search modal" name="CollectionSearchModal component Close collection search modal should close collection search modal" time="0.068">
+    </testcase>
+    <testcase classname="CollectionSearchModal component Select collection should select collection and close modal" name="CollectionSearchModal component Select collection should select collection and close modal" time="0.016">
+    </testcase>
+  </testsuite>
+  <testsuite name="CollectionSearchContainer component" errors="0" failures="0" skipped="0" timestamp="2023-02-14T16:20:46" time="3.974" tests="1">
+    <testcase classname="CollectionSearchContainer component should update query when plugin is open" name="CollectionSearchContainer component should update query when plugin is open" time="0.02">
+    </testcase>
+  </testsuite>
+  <testsuite name="CollectionFilters component" errors="0" failures="0" skipped="0" timestamp="2023-02-14T16:20:46" time="4.183" tests="1">
+    <testcase classname="CollectionFilters component should display filters" name="CollectionFilters component should display filters" time="0.112">
+    </testcase>
+  </testsuite>
+  <testsuite name="CollectionView" errors="0" failures="0" skipped="0" timestamp="2023-02-14T16:20:46" time="4.276" tests="4">
+    <testcase classname="CollectionView filter pane and searchField should be visible" name="CollectionView filter pane and searchField should be visible" time="0.107">
+    </testcase>
+    <testcase classname="CollectionView search field should be active element" name="CollectionView search field should be active element" time="0.027">
+    </testcase>
+    <testcase classname="CollectionView buttons for submit and reset should be visible" name="CollectionView buttons for submit and reset should be visible" time="0.024">
+    </testcase>
+    <testcase classname="CollectionView enter search string should enable submit button" name="CollectionView enter search string should enable submit button" time="0.084">
+    </testcase>
+  </testsuite>
+</testsuites>
