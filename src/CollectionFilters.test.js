@@ -1,0 +1,29 @@
+import { render } from '@testing-library/react';
+
+import CollectionFilters from './CollectionFilters';
+
+const data = {
+  mdSources: [{ id: 'test', label: 'test' }],
+};
+
+const renderCollectionFilter = () => (
+  render(
+    <CollectionFilters
+      activeFilters={{}}
+      filterData={data}
+      filterHandlers={{}}
+    />,
+  )
+);
+
+describe('CollectionFilters component', () => {
+  it('should display filters', () => {
+    renderCollectionFilter();
+
+    expect(document.querySelector('#filter-accordion-mdSource')).toBeDefined();
+    expect(document.querySelector('#filter-accordion-freeContent')).toBeDefined();
+    expect(document.querySelector('#filter-accordion-permitted')).toBeDefined();
+    expect(document.querySelector('#filter-accordion-selected')).toBeDefined();
+    expect(document.querySelector('#filter-accordion-assigned')).toBeDefined();
+  });
+});

@@ -265,6 +265,7 @@ export default class CollectionsView extends React.Component {
                   {this.state.filterPaneIsVisible &&
                     <Pane
                       defaultWidth="20%"
+                      id="plugin-find-collection-filter-pane"
                       lastMenu={
                         <PaneMenu>
                           <CollapseFilterPaneButton

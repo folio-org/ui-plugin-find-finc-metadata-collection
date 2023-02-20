@@ -1,4 +1,17 @@
 {
+  "parser": "@babel/eslint-parser",
   "extends": "@folio/eslint-config-stripes",
-  "parser": "@babel/eslint-parser"
+  "rules": {
+    "react/prop-types": [
+      "error",
+      {
+        "skipUndeclared": true
+      }
+    ],
+    "no-unused-vars": ["error", { "ignoreRestSiblings": true }]
+  },
+  "env": {
+    "jest/globals": true
+  },
+  "plugins": ["jest"]
 }
