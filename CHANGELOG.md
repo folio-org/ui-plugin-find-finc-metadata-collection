@@ -1,6 +1,9 @@
 # Change history for ui-plugin-find-finc-metadata-collection
 
-## 5.1.0 (IN PROGRESS)
+## 5.2.0 (IN PROGRESS)
+
+## 5.1.0(https://github.com/folio-org/ui-plugin-find-finc-metadata-collection/tree/v5.1.0) (2023-03-16)
+* Translations update
 
 ## 5.0.0(https://github.com/folio-org/ui-plugin-find-finc-metadata-collection/tree/v5.0.0) (2023-02-23)
 * Bump Stripes to v8 and drop unneeded `react-redux`, `redux` ([UIFC-292](https://issues.folio.org/browse/UIFC-292))
