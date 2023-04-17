@@ -5,7 +5,7 @@
     "button.close": "閉じる",
     "modal.totalSelected": "選択済合計： {count}",
     "button.save": "保存",
-    "label": "Name",
+    "label": "名前",
     "mdSource": "Metadata source",
     "permitted": "Usage permitted",
     "freeContent": "Free content",
