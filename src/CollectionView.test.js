@@ -1,4 +1,4 @@
-import userEvent from '@testing-library/user-event';
+import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
 import { noop } from 'lodash';
 import { BrowserRouter as Router } from 'react-router-dom';
 import renderWithIntl from '../test/jest/helpers/renderWithIntl';
