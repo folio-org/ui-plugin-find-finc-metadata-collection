@@ -1,23 +1,15 @@
+import { screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
-
-import translationsProperties from '../test/jest/helpers/translationsProperties';
 import renderWithIntl from '../test/jest/helpers/renderWithIntl';
+import translationsProperties from '../test/jest/helpers/translationsProperties';
 import CollectionSearch from './CollectionSearch';
 
 jest.mock('./CollectionSearchModal', () => {
   return () => <span>CollectionSearchModal</span>;
 });
 
-const renderCollectionSearch = (
-  renderTrigger,
-) => (
-  renderWithIntl(
-    <CollectionSearch
-      renderTrigger={renderTrigger}
-    />,
-    translationsProperties
-  )
-);
+const renderCollectionSearch = (renderTrigger) =>
+  renderWithIntl(<CollectionSearch renderTrigger={renderTrigger} />, translationsProperties);
 
 describe('CollectionSearch component', () => {
   it('should display search collection button', () => {
@@ -33,10 +25,10 @@ describe('CollectionSearch component', () => {
     expect(renderTrigger).toHaveBeenCalled();
   });
 
-  it('should open collection search modal', () => {
-    const { getByText } = renderCollectionSearch();
-    user.click(document.querySelector('#clickable-plugin-find-finc-metadata-collection'));
+  it('should open collection search modal', async () => {
+    renderCollectionSearch();
+    await user.click(document.querySelector('#clickable-plugin-find-finc-metadata-collection'));
 
-    expect(getByText('CollectionSearchModal')).toBeDefined();
+    expect(screen.getByText('CollectionSearchModal')).toBeInTheDocument();
   });
 });

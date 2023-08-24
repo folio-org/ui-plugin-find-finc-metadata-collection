@@ -1,4 +1,4 @@
-import { act, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import CollectionSearchContainer from './CollectionSearchContainer';
 
@@ -21,9 +21,7 @@ describe('CollectionSearchContainer component', () => {
   });
 
   it('should update query when plugin is open', async () => {
-    await act(async () => {
-      renderCollectionSearchContainer(mutator);
-    });
+    renderCollectionSearchContainer(mutator);
 
     expect(mutator.query.update).toHaveBeenCalled();
   });
