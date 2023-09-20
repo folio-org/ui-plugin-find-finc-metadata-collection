@@ -1,6 +1,7 @@
 # Change history for ui-plugin-find-finc-metadata-collection
 
 ## 6.0.0 (IN PROGRESS)
+* Migrate to react-intl v6 ([UIFC-327](https://issues.folio.org/browse/UIFC-327))
 * Upgrade React to v18 ([UIFC-320](https://issues.folio.org/browse/UIFC-320))
 
 ## [5.1.0](https://github.com/folio-org/ui-plugin-find-finc-metadata-collection/tree/v5.1.0) (2023-03-16)
