@@ -1,6 +1,6 @@
 {
   "name": "@folio/plugin-find-finc-metadata-collection",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "description": "Finder plugin for finc metadata collections",
   "repository": "folio-org/ui-plugin-find-finc-metadata-collection",
   "publishConfig": {
@@ -33,7 +33,7 @@
     "@folio/eslint-config-stripes": "^7.0.0",
     "@folio/jest-config-stripes": "^2.0.0",
     "@folio/stripes": "^9.0.0",
-    "@folio/stripes-acq-components": "^5.0.0",
+    "@folio/stripes-acq-components": "~5.1.0",
     "@folio/stripes-cli": "^3.0.0",
     "@folio/stripes-components": "^12.0.0",
     "@folio/stripes-core": "^10.0.0",
