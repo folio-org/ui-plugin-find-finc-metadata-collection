@@ -1,7 +1,7 @@
-import _ from 'lodash';
-import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+import { useState, useRef } from 'react';
+import { noop } from 'lodash';
+import { FormattedMessage } from 'react-intl';
 import contains from 'dom-helpers/query/contains';
 
 import {
@@ -11,98 +11,79 @@ import {
 
 import CollectionSearchModal from './CollectionSearchModal';
 
-class CollectionSearch extends Component {
-  constructor(props) {
-    super(props);
+const CollectionSearch = ({
+  buttonId = 'clickable-plugin-find-finc-metadata-collection',
+  collectionIds,
+  filterId,
+  isEditable,
+  marginBottom0,
+  renderTrigger,
+  searchButtonStyle = 'primary noRightRadius',
+  searchLabel,
+  selectRecords = noop,
+  ...props
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    this.state = {
-      openModal: false,
-    };
+  const modalTrigger = useRef(null);
+  const modalRef = useRef(null);
 
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.modalTrigger = React.createRef();
-    this.modalRef = React.createRef();
-  }
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
-  openModal() {
-    this.setState({
-      openModal: true,
-    });
-  }
-
-  closeModal() {
-    this.setState({
-      openModal: false,
-    }, () => {
-      if (this.modalRef.current && this.modalTrigger.current) {
-        if (contains(this.modalRef.current, document.activeElement)) {
-          this.modalTrigger.current.focus();
+  const closeModal = () => {
+    setIsModalOpen(false, () => {
+      if (modalRef.current && modalTrigger.current) {
+        if (contains(modalRef.current, document.activeElement)) {
+          modalTrigger.current.focus();
         }
       }
     });
-  }
+  };
 
-  renderTriggerButton() {
-    const { renderTrigger } = this.props;
-
+  const renderTriggerButton = () => {
     return renderTrigger({
-      buttonRef: this.modalTrigger,
-      onClick: this.openModal,
+      buttonRef: modalTrigger,
+      onClick: openModal,
     });
-  }
+  };
 
-  passRecordsOut = records => {
-    this.props.selectRecords(records);
-  }
+  const passRecordsOut = records => {
+    selectRecords(records);
+  };
 
-  render() {
-    const {
-      buttonId,
-      marginBottom0,
-      renderTrigger,
-      searchButtonStyle,
-      searchLabel,
-    } = this.props;
-
-    return (
-      <>
-        {renderTrigger ?
-          this.renderTriggerButton() :
-          <FormattedMessage id="ui-plugin-find-finc-metadata-collection.searchButton.title">
-            {ariaLabel => (
-              <Button
-                aria-label={ariaLabel}
-                buttonRef={this.modalTrigger}
-                buttonStyle={searchButtonStyle}
-                id={buttonId}
-                key="searchButton"
-                marginBottom0={marginBottom0}
-                onClick={this.openModal}
-              >
-                {searchLabel || <Icon icon="search" color="#fff" />}
-              </Button>
-            )}
-          </FormattedMessage>}
-        <CollectionSearchModal
-          collectionIds={this.props.collectionIds}
-          filterId={this.props.filterId}
-          isEditable={this.props.isEditable}
-          modalRef={this.modalRef}
-          open={this.state.openModal}
-          onClose={this.closeModal}
-          selectRecordsModal={this.passRecordsOut}
-          {...this.props}
-        />
-      </ >
-    );
-  }
-}
-
-CollectionSearch.defaultProps = {
-  buttonId: 'clickable-plugin-find-finc-metadata-collection',
-  searchButtonStyle: 'primary noRightRadius',
-  selectRecords: _.noop,
+  return (
+    <>
+      {renderTrigger ?
+        renderTriggerButton() :
+        <FormattedMessage id="ui-plugin-find-finc-metadata-collection.searchButton.title">
+          {ariaLabel => (
+            <Button
+              aria-label={ariaLabel}
+              buttonRef={modalTrigger}
+              buttonStyle={searchButtonStyle}
+              id={buttonId}
+              key="searchButton"
+              marginBottom0={marginBottom0}
+              onClick={openModal}
+            >
+              {searchLabel || <Icon icon="search" color="#fff" />}
+            </Button>
+          )}
+        </FormattedMessage>}
+      <CollectionSearchModal
+        collectionIds={collectionIds}
+        filterId={filterId}
+        isEditable={isEditable}
+        modalRef={modalRef}
+        open={isModalOpen}
+        onClose={closeModal}
+        selectRecordsModal={passRecordsOut}
+        {...props}
+      />
+    </ >
+  );
 };
 
 CollectionSearch.propTypes = {
