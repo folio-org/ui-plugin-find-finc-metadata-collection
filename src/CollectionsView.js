@@ -66,6 +66,11 @@ const CollectionsView = ({
     // {6dd325f8-b1d5-4568-a0d7-aecf6b8d6123: {…}, 9a2427cd-4110-4bd9-b6f9-e3475631bbac: {…}}
   }, [collectionIds]);
 
+  const query = queryGetter() || {};
+  const sortOrder = query.sort || '';
+  const checkedRecordsLength = checkedMap ? Object.keys(checkedMap).length : 0;
+  const visibleColumns = ['isChecked', 'label', 'mdSource', 'permitted', 'freeContent'];
+
   const columnWidths = {
     isChecked: 40,
     label: 270,
@@ -107,16 +112,6 @@ const CollectionsView = ({
   };
 
   const toggleAll = () => {
-    // this.setState((state, props) => {
-    //   const isAllChecked = !state.isAllChecked;
-    //   const checkedMap = reduceCheckedRecords(contentData, isAllChecked);
-
-    //   return {
-    //     checkedMap,
-    //     isAllChecked,
-    //   };
-    // });
-
     const isAllCheckedCurr = !isAllChecked;
     const checkedMapCurr = reduceCheckedRecords(contentData, isAllCheckedCurr);
 
@@ -126,24 +121,6 @@ const CollectionsView = ({
 
   const toggleRecord = toggledRecord => {
     const { id } = toggledRecord;
-
-    // this.setState((state, props) => {
-    //   const wasChecked = Boolean(state.checkedMap[id]);
-    //   const checkedMap = { ...state.checkedMap };
-
-    //   if (wasChecked) {
-    //     delete checkedMap[id];
-    //   } else {
-    //     checkedMap[id] = toggledRecord;
-    //   }
-    //   const isAllChecked = contentData.every(record => Boolean(checkedMap[record.id]));
-
-    //   return {
-    //     checkedMap,
-    //     isAllChecked,
-    //   };
-    // });
-
     const wasChecked = Boolean(checkedMap[id]);
     const checkedMapCurr = { ...checkedMap };
 
@@ -175,12 +152,6 @@ const CollectionsView = ({
       </div>
     );
   };
-
-  const query = queryGetter() || {};
-  const sortOrder = query.sort || '';
-  const checkedRecordsLength = checkedMap ? Object.keys(checkedMap).length : 0;
-
-  const visibleColumns = ['isChecked', 'label', 'mdSource', 'permitted', 'freeContent'];
 
   const footer = (
     <PaneFooter footerClass={css.paneFooter}>

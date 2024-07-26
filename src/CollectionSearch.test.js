@@ -1,5 +1,6 @@
 import { screen } from '@folio/jest-config-stripes/testing-library/react';
 import user from '@folio/jest-config-stripes/testing-library/user-event';
+
 import renderWithIntl from '../test/jest/helpers/renderWithIntl';
 import translationsProperties from '../test/jest/helpers/translationsProperties';
 import CollectionSearch from './CollectionSearch';
