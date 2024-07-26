@@ -6,12 +6,17 @@ const data = {
   mdSources: [{ id: 'test', label: 'test' }],
 };
 
+const mockFilterHandlers = {
+  clearGroup: jest.fn(),
+  state: jest.fn(),
+};
+
 const renderCollectionFilter = () => (
   render(
     <CollectionFilters
       activeFilters={{}}
       filterData={data}
-      filterHandlers={{}}
+      filterHandlers={mockFilterHandlers}
     />,
   )
 );
