@@ -330,7 +330,7 @@ const CollectionsView = ({
   );
 };
 
-CollectionsView.propTypes = Object.freeze({
+CollectionsView.propTypes = {
   collectionIds: PropTypes.arrayOf(PropTypes.object),
   contentData: PropTypes.object,
   contentRef: PropTypes.object,
@@ -345,6 +345,6 @@ CollectionsView.propTypes = Object.freeze({
   queryGetter: PropTypes.func.isRequired,
   querySetter: PropTypes.func.isRequired,
   searchField: PropTypes.object,
-});
+};
 
 export default CollectionsView;
