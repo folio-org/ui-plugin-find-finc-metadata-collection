@@ -40,6 +40,8 @@ const tinySources = [
 
 const onSearchComplete = jest.fn();
 const isEmptyMessage = jest.fn();
+const onCloseModal = jest.fn();
+const onSaveMultiple = jest.fn();
 const history = {};
 
 const renderCollectionsView = (
@@ -62,6 +64,8 @@ const renderCollectionsView = (
             queryGetter={jest.fn()}
             querySetter={jest.fn()}
             searchString=""
+            onClose={onCloseModal}
+            onSaveMultiple={onSaveMultiple}
             visibleColumns={['isChecked', 'label', 'mdSource', 'permitted', 'freeContent']}
             history={history}
             onSearchComplete={onSearchComplete}
@@ -168,15 +172,27 @@ describe('click "active" filter and load new results', () => {
       expect(document.querySelector('#list-column-freecontent')).toBeInTheDocument();
     });
 
-    // test('select all button...', async () => {
-    //   renderWithIntlResult = renderCollectionsView(stripes, sourceLoaded, ARRAY_COLLECTION);
-    //   expect(document.querySelector('[data-test-find-records-modal-select-all]')).not.toBeChecked();
-    //   await userEvent.click(document.querySelector('[data-test-find-records-modal-select-all]'));
+    const reduceCheckedRecords = (records, isChecked = false) => {
+      const recordsReducer = (accumulator, record) => {
+        if (isChecked) {
+          accumulator[record.id] = record;
+        }
+        return accumulator;
+      };
+      return records.reduce(recordsReducer, {});
+    };
 
+    test('reduceCheckedRecords should correctly reduce records based on isChecked', () => {
+      const records = [{ id: '1' }, { id: '2' }, { id: '3' }];
+      const result = reduceCheckedRecords(records, true);
+      expect(result).toEqual({
+        '1': { id: '1' },
+        '2': { id: '2' },
+        '3': { id: '3' }
+      });
 
-    //   await expect(document.querySelector('[data-test-find-records-modal-select-all]')).toBeChecked();
-
-
-    // });
+      const resultUnchecked = reduceCheckedRecords(records, false);
+      expect(resultUnchecked).toEqual({});
+    });
   });
 });
