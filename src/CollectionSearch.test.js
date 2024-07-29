@@ -2,7 +2,6 @@ import { screen } from '@folio/jest-config-stripes/testing-library/react';
 import user from '@folio/jest-config-stripes/testing-library/user-event';
 
 import renderWithIntl from '../test/jest/helpers/renderWithIntl';
-import translationsProperties from '../test/jest/helpers/translationsProperties';
 import CollectionSearch from './CollectionSearch';
 
 jest.mock('./CollectionSearchModal', () => {
@@ -10,7 +9,7 @@ jest.mock('./CollectionSearchModal', () => {
 });
 
 const renderCollectionSearch = (renderTrigger) =>
-  renderWithIntl(<CollectionSearch renderTrigger={renderTrigger} />, translationsProperties);
+  renderWithIntl(<CollectionSearch renderTrigger={renderTrigger} />);
 
 describe('CollectionSearch component', () => {
   it('should display search collection button', () => {
