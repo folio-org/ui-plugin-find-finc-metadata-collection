@@ -1,7 +1,6 @@
 import { MemoryRouter } from 'react-router-dom';
 
 import { ModuleHierarchyProvider, StripesContext, useStripes } from '@folio/stripes/core';
-
 import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
 
 import renderWithIntl from '../test/jest/helpers/renderWithIntl';
@@ -170,29 +169,6 @@ describe('click "active" filter and load new results', () => {
       expect(document.querySelector('#list-column-mdsource')).toBeInTheDocument();
       expect(document.querySelector('#list-column-permitted')).toBeInTheDocument();
       expect(document.querySelector('#list-column-freecontent')).toBeInTheDocument();
-    });
-
-    const reduceCheckedRecords = (records, isChecked = false) => {
-      const recordsReducer = (accumulator, record) => {
-        if (isChecked) {
-          accumulator[record.id] = record;
-        }
-        return accumulator;
-      };
-      return records.reduce(recordsReducer, {});
-    };
-
-    test('reduceCheckedRecords should correctly reduce records based on isChecked', () => {
-      const records = [{ id: '1' }, { id: '2' }, { id: '3' }];
-      const result = reduceCheckedRecords(records, true);
-      expect(result).toEqual({
-        '1': { id: '1' },
-        '2': { id: '2' },
-        '3': { id: '3' }
-      });
-
-      const resultUnchecked = reduceCheckedRecords(records, false);
-      expect(resultUnchecked).toEqual({});
     });
   });
 });

@@ -4,10 +4,7 @@ import { noop } from 'lodash';
 import { FormattedMessage } from 'react-intl';
 import contains from 'dom-helpers/query/contains';
 
-import {
-  Button,
-  Icon
-} from '@folio/stripes/components';
+import { Button, Icon } from '@folio/stripes/components';
 
 import CollectionSearchModal from './CollectionSearchModal';
 
