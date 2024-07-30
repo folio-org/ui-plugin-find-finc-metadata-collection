@@ -16,8 +16,9 @@ const renderCollectionFilter = () => (
   render(
     <CollectionFilters
       activeFilters={{
-        permitted: 'yes',
-        selected: 'yes',
+        permitted: ['yes'],
+        selected: ['yes'],
+        mdSource: ['testid'],
       }}
       filterData={data}
       filterHandlers={mockFilterHandlers}
@@ -46,5 +47,25 @@ describe('CollectionFilters component', () => {
 
     await userEvent.click(clearselectedFilter);
     expect(mockFilterHandlers.clearGroup).toHaveBeenCalledWith('selected');
+  });
+
+  test('select and clear sources filter', async () => {
+    renderCollectionFilter();
+    const mdSourceFilter = document.querySelector('#filter-accordion-mdSource');
+    expect(mdSourceFilter).toBeInTheDocument();
+
+    // open selectbox
+    await userEvent.click(document.querySelector('#mdSource-filter'));
+
+    // select first mdSource in selectbox
+    const firstMdSource = document.querySelector('#sl-container-mdSource-filter ul[aria-labelledby="sl-label-mdSource-filter"] li:first-child');
+    expect(firstMdSource).toBeInTheDocument();
+    await userEvent.click(firstMdSource);
+
+    const clearMdSourceFilter = mdSourceFilter.querySelector('button[icon="times-circle-solid"]');
+    await expect(clearMdSourceFilter).toBeInTheDocument();
+
+    await userEvent.click(clearMdSourceFilter);
+    expect(mockFilterHandlers.clearGroup).toHaveBeenCalledWith('mdSource');
   });
 });
