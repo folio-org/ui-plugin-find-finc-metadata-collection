@@ -8,7 +8,6 @@ import CollectionsView from './CollectionsView';
 
 jest.mock('react-virtualized-auto-sizer', () => ({ children }) => children({ width: 1920, height: 1080 }));
 
-const sourcePending = { source: { pending: jest.fn(() => true), totalCount: jest.fn(() => 0), loaded: jest.fn(() => false) } };
 const sourceLoaded = { source: { pending: jest.fn(() => false), totalCount: jest.fn(() => 1), loaded: jest.fn(() => true) } };
 
 const ARRAY_COLLECTION = [
@@ -56,6 +55,7 @@ const renderCollectionsView = (
           <CollectionsView
             contentData={metadatacollections}
             filtered={metadatacollections}
+            isEditable
             selectedRecordId=""
             onNeedMoreData={jest.fn()}
             isEmptyMessage={isEmptyMessage}
@@ -143,32 +143,23 @@ describe('CollectionView', () => {
 
     expect(document.querySelector('#paneHeaderplugin-find-collection-filter-pane-pane-title')).toBeInTheDocument();
   });
-});
 
-describe('click "active" filter and load new results', () => {
-  let stripes;
+  it('should show a certain amount of results and all columns', async () => {
+    await userEvent.click(document.querySelector('#clickable-reset-all'));
 
-  afterEach(() => {
-    jest.clearAllMocks();
+    expect(document.querySelectorAll('#list-collections .mclRowContainer > [role=row]').length).toEqual(2);
+
+    expect(document.querySelector('#list-column-label')).toBeInTheDocument();
+    expect(document.querySelector('#list-column-mdsource')).toBeInTheDocument();
+    expect(document.querySelector('#list-column-permitted')).toBeInTheDocument();
+    expect(document.querySelector('#list-column-freecontent')).toBeInTheDocument();
   });
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-    stripes = useStripes();
-  });
+  test('select all and save', async () => {
+    expect(document.querySelector('[data-test-find-records-modal-select-all]')).not.toBeChecked();
+    await userEvent.click(document.querySelector('[data-test-find-records-modal-select-all]'));
+    await userEvent.click(document.querySelector('[data-test-find-collection-modal-save]'));
 
-  describe('render with results', () => {
-    it('should show a certain amount of results and all columns', async () => {
-      renderCollectionsView(stripes, sourcePending, ARRAY_COLLECTION);
-
-      await userEvent.click(document.querySelector('#clickable-reset-all'));
-
-      expect(document.querySelectorAll('#list-collections .mclRowContainer > [role=row]').length).toEqual(2);
-
-      expect(document.querySelector('#list-column-label')).toBeInTheDocument();
-      expect(document.querySelector('#list-column-mdsource')).toBeInTheDocument();
-      expect(document.querySelector('#list-column-permitted')).toBeInTheDocument();
-      expect(document.querySelector('#list-column-freecontent')).toBeInTheDocument();
-    });
+    expect(onSaveMultiple).toHaveBeenCalled();
   });
 });
