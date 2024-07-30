@@ -45,6 +45,7 @@ const history = {};
 const renderCollectionsView = (
   stripes,
   props,
+  isEditable,
   metadatacollections,
   rerender
 ) => (
@@ -55,7 +56,7 @@ const renderCollectionsView = (
           <CollectionsView
             contentData={metadatacollections}
             filtered={metadatacollections}
-            isEditable
+            isEditable={isEditable}
             selectedRecordId=""
             onNeedMoreData={jest.fn()}
             isEmptyMessage={isEmptyMessage}
@@ -80,7 +81,7 @@ const renderCollectionsView = (
 
 jest.unmock('react-intl');
 
-describe('CollectionView', () => {
+describe('CollectionView is editable', () => {
   let stripes;
 
   afterEach(() => {
@@ -90,7 +91,7 @@ describe('CollectionView', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     stripes = useStripes();
-    renderCollectionsView(stripes, sourceLoaded, ARRAY_COLLECTION);
+    renderCollectionsView(stripes, sourceLoaded, true, ARRAY_COLLECTION);
   });
 
   it('filter pane and searchField should be visible', () => {
@@ -120,21 +121,22 @@ describe('CollectionView', () => {
   });
 
   test('if collapse filter pane is working', async () => {
-    expect(document.querySelector('#paneHeaderplugin-find-collection-filter-pane-pane-title')).toBeInTheDocument();
-    expect(document.querySelector('[data-test-collapse-filter-pane-button]')).toBeInTheDocument();
+    const pluginPaneTitle = document.querySelector('#paneHeaderplugin-find-collection-filter-pane-pane-title');
+    const collapseFilterButton = document.querySelector('[data-test-collapse-filter-pane-button]');
+
+    expect(pluginPaneTitle).toBeInTheDocument();
+    expect(collapseFilterButton).toBeInTheDocument();
 
     await userEvent.click(document.querySelector('#clickable-reset-all'));
-    await userEvent.click(document.querySelector('[data-test-collapse-filter-pane-button]'));
+    await userEvent.click(collapseFilterButton);
 
-    expect(document.querySelector('#paneHeaderplugin-find-collection-filter-pane-pane-title')).not.toBeInTheDocument();
-    expect(document.querySelector('[data-test-expand-filter-pane-button]')).toBeInTheDocument();
+    expect(pluginPaneTitle).not.toBeInTheDocument();
 
-    await userEvent.hover(document.querySelector('[data-test-expand-filter-pane-button]'));
+    const expandFilterButton = document.querySelector('[data-test-expand-filter-pane-button]');
+    expect(expandFilterButton).toBeInTheDocument();
 
     const filterCountDisplay = document.querySelector('#expand-filter-pane-button-tooltip-sub');
     expect(filterCountDisplay).toBeInTheDocument();
-
-    const expandFilterButton = document.querySelector('[data-test-expand-filter-pane-button]');
 
     const badge = expandFilterButton.querySelector('.badge .label');
     expect(badge).toHaveTextContent('2');
@@ -155,11 +157,50 @@ describe('CollectionView', () => {
     expect(document.querySelector('#list-column-freecontent')).toBeInTheDocument();
   });
 
-  test('select all and save', async () => {
-    expect(document.querySelector('[data-test-find-records-modal-select-all]')).not.toBeChecked();
-    await userEvent.click(document.querySelector('[data-test-find-records-modal-select-all]'));
+  test('if select all and click save button is calling function', async () => {
+    const selectAllButton = document.querySelector('[data-test-find-records-modal-select-all]');
+    expect(selectAllButton).not.toBeChecked();
+    await userEvent.click(selectAllButton);
     await userEvent.click(document.querySelector('[data-test-find-collection-modal-save]'));
 
     expect(onSaveMultiple).toHaveBeenCalled();
+  });
+
+  test('if select one collection and click save button is calling function', async () => {
+    const checkbox = document.querySelector('#list-collections .mclRowContainer [data-row-index="row-0"] input[type="checkbox"]');
+    const saveButton = document.querySelector('[data-test-find-collection-modal-save]');
+
+    expect(checkbox).toBeInTheDocument();
+    expect(saveButton).toBeInTheDocument();
+
+    await userEvent.click(checkbox);
+    await userEvent.click(saveButton);
+
+    expect(onSaveMultiple).toHaveBeenCalled();
+  });
+});
+
+describe('CollectionView NOT editable', () => {
+  let stripes;
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    stripes = useStripes();
+    renderCollectionsView(stripes, sourceLoaded, false, ARRAY_COLLECTION);
+  });
+
+  test('if save button is disabled', async () => {
+    const saveButton = document.querySelector('[data-test-find-collection-modal-save]');
+    const selectAllButton = document.querySelector('[data-test-find-records-modal-select-all]');
+
+    expect(selectAllButton).not.toBeChecked();
+    await userEvent.click(selectAllButton);
+    await userEvent.click(saveButton);
+
+    expect(saveButton).toBeDisabled();
   });
 });
