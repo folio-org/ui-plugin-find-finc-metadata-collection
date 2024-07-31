@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import {
@@ -12,32 +12,26 @@ import { CheckboxFilter } from '@folio/stripes/smart-components';
 
 import filterConfig from './filterConfigData';
 
-class CollectionFilters extends React.Component {
-  static propTypes = {
-    activeFilters: PropTypes.object,
-    filterHandlers: PropTypes.object,
-    filterData: PropTypes.object,
-  };
-
-  static defaultProps = {
-    activeFilters: {
-      selected: [],
-      freeContent: [],
-      permitted: [],
-      mdSource: [],
-      assigned: [],
-    },
-  };
-
-  state = {
+const CollectionFilters = ({
+  activeFilters = {
     selected: [],
     freeContent: [],
     permitted: [],
     mdSource: [],
     assigned: [],
-  };
+  },
+  filterHandlers,
+  filterData,
+}) => {
+  const [filtersState, setFiltersState] = useState({
+    selected: [],
+    freeContent: [],
+    permitted: [],
+    mdSource: [],
+    assigned: [],
+  });
 
-  static getDerivedStateFromProps(props, state) {
+  useEffect(() => {
     const newState = {};
     const arr = [];
 
@@ -46,7 +40,7 @@ class CollectionFilters extends React.Component {
       let values = {};
       if (filter === 'mdSource') {
         // get filter values from okapi
-        values = props.filterData[filter] || [];
+        values = filterData[filter] || [];
       } else {
         // get filte values from filterConfig
         values = filter.values;
@@ -64,20 +58,22 @@ class CollectionFilters extends React.Component {
       arr[filter.name] = newValues;
 
       if (
-        state[filter.name] &&
-        arr[filter.name].length !== state[filter.name].length
+        filtersState[filter.name] &&
+        arr[filter.name].length !== filtersState[filter.name].length
       ) {
         newState[filter.name] = arr[filter.name];
       }
     });
 
-    if (Object.keys(newState).length) return newState;
+    if (Object.keys(newState).length) {
+      setFiltersState(prevState => ({
+        ...prevState,
+        ...newState
+      }));
+    }
+  }, [filterData, filtersState]);
 
-    return null;
-  }
-
-  renderCheckboxFilter = (key, props) => {
-    const { activeFilters } = this.props;
+  const renderCheckboxFilter = (key) => {
     const groupFilters = activeFilters[key] || [];
 
     return (
@@ -86,15 +82,14 @@ class CollectionFilters extends React.Component {
         header={FilterAccordionHeader}
         id={`filter-accordion-${key}`}
         label={<FormattedMessage id={`ui-plugin-find-finc-metadata-collection.${key}`} />}
-        onClearFilter={() => { this.props.filterHandlers.clearGroup(key); }}
+        onClearFilter={() => { filterHandlers.clearGroup(key); }}
         separator={false}
-        {...props}
       >
         <CheckboxFilter
-          dataOptions={this.state[key]}
+          dataOptions={filtersState[key]}
           name={key}
           onChange={(group) => {
-            this.props.filterHandlers.state({
+            filterHandlers.state({
               ...activeFilters,
               [group.name]: group.values,
             });
@@ -105,14 +100,13 @@ class CollectionFilters extends React.Component {
     );
   };
 
-  renderMetadataSourceFilter = () => {
-    const mdSources = this.props.filterData.mdSources;
+  const renderMetadataSourceFilter = () => {
+    const mdSources = filterData.mdSources;
     const dataOptions = mdSources.map((mdSource) => ({
       value: mdSource.id,
       label: mdSource.label,
     }));
 
-    const { activeFilters } = this.props;
     const mdSourceFilters = activeFilters.mdSource || [];
 
     return (
@@ -122,14 +116,14 @@ class CollectionFilters extends React.Component {
         id="filter-accordion-mdSource"
         label={<FormattedMessage id="ui-plugin-find-finc-metadata-collection.mdSource" />}
         onClearFilter={() => {
-          this.props.filterHandlers.clearGroup('mdSource');
+          filterHandlers.clearGroup('mdSource');
         }}
         separator={false}
       >
         <Selection
           dataOptions={dataOptions}
           id="mdSource-filter"
-          onChange={(value) => this.props.filterHandlers.state({
+          onChange={(value) => filterHandlers.state({
             ...activeFilters,
             mdSource: [value],
           })
@@ -141,17 +135,21 @@ class CollectionFilters extends React.Component {
     );
   };
 
-  render() {
-    return (
-      <AccordionSet>
-        {this.renderMetadataSourceFilter()}
-        {this.renderCheckboxFilter('freeContent')}
-        {this.renderCheckboxFilter('permitted')}
-        {this.renderCheckboxFilter('selected')}
-        {this.renderCheckboxFilter('assigned')}
-      </AccordionSet>
-    );
-  }
-}
+  return (
+    <AccordionSet>
+      {renderMetadataSourceFilter()}
+      {renderCheckboxFilter('freeContent')}
+      {renderCheckboxFilter('permitted')}
+      {renderCheckboxFilter('selected')}
+      {renderCheckboxFilter('assigned')}
+    </AccordionSet>
+  );
+};
+
+CollectionFilters.propTypes = {
+  activeFilters: PropTypes.object,
+  filterHandlers: PropTypes.object,
+  filterData: PropTypes.object,
+};
 
 export default CollectionFilters;

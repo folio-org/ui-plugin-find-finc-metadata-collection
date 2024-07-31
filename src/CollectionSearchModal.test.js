@@ -1,7 +1,7 @@
 import { screen } from '@folio/jest-config-stripes/testing-library/react';
 import user from '@folio/jest-config-stripes/testing-library/user-event';
+
 import renderWithIntl from '../test/jest/helpers/renderWithIntl';
-import translationsProperties from '../test/jest/helpers/translationsProperties';
 import CollectionSearchModal from './CollectionSearchModal';
 
 jest.mock('./CollectionSearchContainer', () => {
@@ -19,8 +19,7 @@ const selectRecordsModal = jest.fn();
 
 const renderCollectionSearchModal = (open = true, onClose = onCloseModal) =>
   renderWithIntl(
-    <CollectionSearchModal selectRecordsModal={selectRecordsModal} onClose={onClose} open={open} />,
-    translationsProperties
+    <CollectionSearchModal selectRecordsModal={selectRecordsModal} onClose={onClose} open={open} />
   );
 
 describe('CollectionSearchModal component', () => {

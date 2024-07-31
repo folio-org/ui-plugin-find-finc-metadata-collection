@@ -1,15 +1,35 @@
 import { screen } from '@folio/jest-config-stripes/testing-library/react';
 import user from '@folio/jest-config-stripes/testing-library/user-event';
+
 import renderWithIntl from '../test/jest/helpers/renderWithIntl';
-import translationsProperties from '../test/jest/helpers/translationsProperties';
 import CollectionSearch from './CollectionSearch';
 
 jest.mock('./CollectionSearchModal', () => {
   return () => <span>CollectionSearchModal</span>;
 });
 
+jest.mock('./CollectionSearchModal', () => jest.fn(({ open, onClose }) => (
+  <div>
+    {open && (
+      <div>
+        <p>CollectionSearchModal</p>
+        <button onClick={onClose} aria-label="Dismiss modal" type="button" />
+      </div>
+    )}
+  </div>
+)));
+
+const closeModal = jest.fn();
+const isOpen = true;
+
 const renderCollectionSearch = (renderTrigger) =>
-  renderWithIntl(<CollectionSearch renderTrigger={renderTrigger} />, translationsProperties);
+  renderWithIntl(
+    <CollectionSearch
+      renderTrigger={renderTrigger}
+      onClose={closeModal}
+      open={isOpen}
+    />
+  );
 
 describe('CollectionSearch component', () => {
   it('should display search collection button', () => {
@@ -30,5 +50,13 @@ describe('CollectionSearch component', () => {
     await user.click(document.querySelector('#clickable-plugin-find-finc-metadata-collection'));
 
     expect(screen.getByText('CollectionSearchModal')).toBeInTheDocument();
+  });
+
+  it('should call close modal', async () => {
+    renderCollectionSearch();
+    const closeButton = screen.getByRole('button', { name: /Dismiss modal/i });
+    await user.click(closeButton);
+
+    expect(closeModal).toHaveBeenCalled();
   });
 });

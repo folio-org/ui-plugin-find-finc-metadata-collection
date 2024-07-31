@@ -1,6 +1,7 @@
 # Change history for ui-plugin-find-finc-metadata-collection
 
 ## 6.2.0 (IN PROGRESS)
+* Use functional components instead of class components ([UIFC-362](https://folio-org.atlassian.net/browse/UIFC-362))
 
 ## [6.1.0](https://github.com/folio-org/ui-plugin-find-finc-metadata-collection/tree/v6.1.0) (2024-03-20)
 * Translation updates
