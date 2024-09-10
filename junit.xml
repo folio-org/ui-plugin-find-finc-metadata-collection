@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="27" failures="0" errors="0" time="5.162">
+  <testsuite name="CollectionSearch component" errors="0" failures="0" skipped="0" timestamp="2024-09-10T07:43:25" time="2.117" tests="4">
+    <testcase classname="CollectionSearch component should display search collection button" name="CollectionSearch component should display search collection button" time="0.045">
+    </testcase>
+    <testcase classname="CollectionSearch component should render trigger button" name="CollectionSearch component should render trigger button" time="0.007">
+    </testcase>
+    <testcase classname="CollectionSearch component should open collection search modal" name="CollectionSearch component should open collection search modal" time="0.062">
+    </testcase>
+    <testcase classname="CollectionSearch component should call close modal" name="CollectionSearch component should call close modal" time="0.04">
+    </testcase>
+  </testsuite>
+  <testsuite name="CollectionSearchModal component" errors="0" failures="0" skipped="0" timestamp="2024-09-10T07:43:25" time="2.181" tests="4">
+    <testcase classname="CollectionSearchModal component should display collection search modal" name="CollectionSearchModal component should display collection search modal" time="0.123">
+    </testcase>
+    <testcase classname="CollectionSearchModal component should not display collection search modal" name="CollectionSearchModal component should not display collection search modal" time="0.004">
+    </testcase>
+    <testcase classname="CollectionSearchModal component Close collection search modal should close collection search modal" name="CollectionSearchModal component Close collection search modal should close collection search modal" time="0.068">
+    </testcase>
+    <testcase classname="CollectionSearchModal component Select collection should select collection and close modal" name="CollectionSearchModal component Select collection should select collection and close modal" time="0.024">
+    </testcase>
+  </testsuite>
+  <testsuite name="CollectionSearchContainer component" errors="0" failures="0" skipped="0" timestamp="2024-09-10T07:43:25" time="3.232" tests="7">
+    <testcase classname="CollectionSearchContainer component should call the update method of source when resources or mutator changes" name="CollectionSearchContainer component should call the update method of source when resources or mutator changes" time="0.054">
+    </testcase>
+    <testcase classname="CollectionSearchContainer component should update the query when querySetter is called" name="CollectionSearchContainer component should update the query when querySetter is called" time="0.003">
+    </testcase>
+    <testcase classname="CollectionSearchContainer component should fetch more data when handleNeedMoreData is called" name="CollectionSearchContainer component should fetch more data when handleNeedMoreData is called" time="0.002">
+    </testcase>
+    <testcase classname="CollectionSearchContainer component should update the query when querySetter is called" name="CollectionSearchContainer component should update the query when querySetter is called" time="0.002">
+    </testcase>
+    <testcase classname="CollectionSearchContainer component should return the query from resources when queryGetter is called" name="CollectionSearchContainer component should return the query from resources when queryGetter is called" time="0.002">
+    </testcase>
+    <testcase classname="CollectionSearchContainer component should pass the correct data to CollectionsView" name="CollectionSearchContainer component should pass the correct data to CollectionsView" time="0.002">
+    </testcase>
+    <testcase classname="CollectionSearchContainer component should call onChangeIndex" name="CollectionSearchContainer component should call onChangeIndex" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="CollectionFilters component" errors="0" failures="0" skipped="0" timestamp="2024-09-10T07:43:25" time="3.577" tests="3">
+    <testcase classname="CollectionFilters component should display filters" name="CollectionFilters component should display filters" time="0.123">
+    </testcase>
+    <testcase classname="CollectionFilters component should call clearGroup of the correct filterGroup if clicking clear button" name="CollectionFilters component should call clearGroup of the correct filterGroup if clicking clear button" time="0.083">
+    </testcase>
+    <testcase classname="CollectionFilters component select and clear sources filter" name="CollectionFilters component select and clear sources filter" time="0.15">
+    </testcase>
+  </testsuite>
+  <testsuite name="CollectionView is editable" errors="0" failures="0" skipped="0" timestamp="2024-09-10T07:43:25" time="4.376" tests="9">
+    <testcase classname="CollectionView is editable filter pane and searchField should be visible" name="CollectionView is editable filter pane and searchField should be visible" time="0.289">
+    </testcase>
+    <testcase classname="CollectionView is editable search field should be active element" name="CollectionView is editable search field should be active element" time="0.069">
+    </testcase>
+    <testcase classname="CollectionView is editable buttons for submit and reset should be visible" name="CollectionView is editable buttons for submit and reset should be visible" time="0.06">
+    </testcase>
+    <testcase classname="CollectionView is editable enter search string should enable submit button" name="CollectionView is editable enter search string should enable submit button" time="0.257">
+    </testcase>
+    <testcase classname="CollectionView is editable if collapse filter pane is working" name="CollectionView is editable if collapse filter pane is working" time="0.145">
+    </testcase>
+    <testcase classname="CollectionView is editable should show a certain amount of results and all columns" name="CollectionView is editable should show a certain amount of results and all columns" time="0.067">
+    </testcase>
+    <testcase classname="CollectionView is editable if select all and click save button is calling function" name="CollectionView is editable if select all and click save button is calling function" time="0.112">
+    </testcase>
+    <testcase classname="CollectionView is editable if select one collection and click save button is calling function" name="CollectionView is editable if select one collection and click save button is calling function" time="0.106">
+    </testcase>
+    <testcase classname="CollectionView NOT editable if save button is disabled" name="CollectionView NOT editable if save button is disabled" time="0.085">
+    </testcase>
+  </testsuite>
+</testsuites>
