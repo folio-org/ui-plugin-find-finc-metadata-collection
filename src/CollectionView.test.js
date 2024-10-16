@@ -1,6 +1,7 @@
 import { MemoryRouter } from 'react-router-dom';
 
 import { ModuleHierarchyProvider, StripesContext, useStripes } from '@folio/stripes/core';
+import { screen } from '@folio/jest-config-stripes/testing-library/react';
 import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
 
 import renderWithIntl from '../test/jest/helpers/renderWithIntl';
@@ -9,6 +10,7 @@ import CollectionsView from './CollectionsView';
 jest.mock('react-virtualized-auto-sizer', () => ({ children }) => children({ width: 1920, height: 1080 }));
 
 const sourceLoaded = { source: { pending: jest.fn(() => false), totalCount: jest.fn(() => 1), loaded: jest.fn(() => true) } };
+const sourcePending = { source: { pending: jest.fn(() => true), totalCount: jest.fn(() => 0), loaded: jest.fn(() => false) } };
 
 const ARRAY_COLLECTION = [
   {
@@ -83,6 +85,7 @@ jest.unmock('react-intl');
 
 describe('CollectionView is editable', () => {
   let stripes;
+  let renderWithIntlResult = {};
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -91,7 +94,7 @@ describe('CollectionView is editable', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     stripes = useStripes();
-    renderCollectionsView(stripes, sourceLoaded, true, ARRAY_COLLECTION);
+    renderWithIntlResult = renderCollectionsView(stripes, sourcePending, true, ARRAY_COLLECTION);
   });
 
   it('filter pane and searchField should be visible', () => {
@@ -118,6 +121,51 @@ describe('CollectionView is editable', () => {
     await userEvent.type(document.querySelector('#collectionSearchField'), 'collection');
 
     expect(searchButton).toBeEnabled();
+  });
+
+  test('entering search sting and deleting it', async () => {
+    const data = [
+      {
+        collectionId: 'coe-123',
+        label: 'Test collection 1',
+        permitted: 'yes',
+        selected: 'yes',
+      }
+    ];
+
+    const inputField = document.querySelector('#collectionSearchField');
+    await userEvent.type(inputField, 'Test collection 1');
+
+    expect(document.querySelector('#collectionSubmitSearch')).toBeEnabled();
+    await userEvent.click(document.querySelector('#collectionSubmitSearch'));
+
+    renderCollectionsView(
+      stripes,
+      sourceLoaded,
+      true,
+      data,
+      renderWithIntlResult.rerender
+    );
+
+    expect(screen.getByText('Test collection 1')).toBeInTheDocument();
+    expect(screen.queryByText('Test collection 2')).not.toBeInTheDocument();
+
+    expect(document.querySelectorAll('#list-collections .mclRowContainer > [role=row]').length).toEqual(1);
+
+    await userEvent.type(inputField, ' ');
+
+    renderCollectionsView(
+      stripes,
+      sourceLoaded,
+      true,
+      ARRAY_COLLECTION,
+      renderWithIntlResult.rerender
+    );
+
+    expect(screen.getByText('Test collection 1')).toBeInTheDocument();
+    expect(screen.getByText('Test collection 2')).toBeInTheDocument();
+
+    expect(document.querySelectorAll('#list-collections .mclRowContainer > [role=row]').length).toEqual(2);
   });
 
   test('if collapse filter pane is working', async () => {
