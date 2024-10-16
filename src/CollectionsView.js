@@ -153,6 +153,22 @@ const CollectionsView = ({
     );
   };
 
+  const handleChangeSearch = (e, getSearchHandlers) => {
+    getSearchHandlers.state({
+      query: e,
+    });
+  };
+
+  const handleClearSearch = (getSearchHandlers, onSubmitSearch, searchValue) => {
+    searchValue.query = '';
+
+    getSearchHandlers.state({
+      query: '',
+    });
+
+    return onSubmitSearch;
+  };
+
   const footer = (
     <PaneFooter footerClass={css.paneFooter}>
       <div className={css.pluginModalFooter}>
@@ -164,23 +180,21 @@ const CollectionsView = ({
         >
           <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.close" />
         </Button>
-        <>
-          <div>
-            <FormattedMessage
-              id="ui-plugin-find-finc-metadata-collection.modal.totalSelected"
-              values={{ count: checkedRecordsLength }}
-            />
-          </div>
-          <Button
-            buttonStyle="primary"
-            data-test-find-collection-modal-save
-            disabled={!isEditable}
-            marginBottom0
-            onClick={saveMultiple}
-          >
-            <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.save" />
-          </Button>
-        </ >
+        <div>
+          <FormattedMessage
+            id="ui-plugin-find-finc-metadata-collection.modal.totalSelected"
+            values={{ count: checkedRecordsLength }}
+          />
+        </div>
+        <Button
+          buttonStyle="primary"
+          data-test-find-collection-modal-save
+          disabled={!isEditable}
+          marginBottom0
+          onClick={saveMultiple}
+        >
+          <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.save" />
+        </Button>
       </div>
     </PaneFooter>
   );
@@ -201,10 +215,10 @@ const CollectionsView = ({
   };
 
   const formatter = {
-    isChecked: record => (
+    isChecked: col => (
       <Checkbox
-        checked={Boolean(checkedMap[record.id])}
-        onChange={isEditable ? () => toggleRecord(record) : undefined}
+        checked={Boolean(checkedMap[col.id])}
+        onChange={isEditable ? () => toggleRecord(col) : undefined}
         type="checkbox"
       />
     ),
@@ -261,8 +275,14 @@ const CollectionsView = ({
                           id="collectionSearchField"
                           inputRef={searchField}
                           name="query"
-                          onChange={getSearchHandlers().query}
-                          onClear={getSearchHandlers().reset}
+                          onChange={(e) => {
+                            if (e.target.value) {
+                              handleChangeSearch(e.target.value, getSearchHandlers());
+                            } else {
+                              handleClearSearch(getSearchHandlers(), onSubmitSearch(), searchValue);
+                            }
+                          }}
+                          onClear={() => handleClearSearch(getSearchHandlers(), onSubmitSearch(), searchValue)}
                           value={searchValue.query}
                         />
                         <Button
