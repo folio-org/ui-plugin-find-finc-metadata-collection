@@ -153,22 +153,6 @@ const CollectionsView = ({
     );
   };
 
-  const handleChangeSearch = (e, getSearchHandlers) => {
-    getSearchHandlers.state({
-      query: e,
-    });
-  };
-
-  const handleClearSearch = (getSearchHandlers, onSubmitSearch, searchValue) => {
-    searchValue.query = '';
-
-    getSearchHandlers.state({
-      query: '',
-    });
-
-    return onSubmitSearch;
-  };
-
   const footer = (
     <PaneFooter footerClass={css.paneFooter}>
       <div className={css.pluginModalFooter}>
@@ -215,10 +199,10 @@ const CollectionsView = ({
   };
 
   const formatter = {
-    isChecked: col => (
+    isChecked: record => (
       <Checkbox
-        checked={Boolean(checkedMap[col.id])}
-        onChange={isEditable ? () => toggleRecord(col) : undefined}
+        checked={Boolean(checkedMap[record.id])}
+        onChange={isEditable ? () => toggleRecord(record) : undefined}
         type="checkbox"
       />
     ),
@@ -277,12 +261,12 @@ const CollectionsView = ({
                           name="query"
                           onChange={(e) => {
                             if (e.target.value) {
-                              handleChangeSearch(e.target.value, getSearchHandlers());
+                              getSearchHandlers().query(e);
                             } else {
-                              handleClearSearch(getSearchHandlers(), onSubmitSearch(), searchValue);
+                              getSearchHandlers().reset();
                             }
                           }}
-                          onClear={() => handleClearSearch(getSearchHandlers(), onSubmitSearch(), searchValue)}
+                          onClear={getSearchHandlers().reset}
                           value={searchValue.query}
                         />
                         <Button
