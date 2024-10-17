@@ -164,23 +164,21 @@ const CollectionsView = ({
         >
           <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.close" />
         </Button>
-        <>
-          <div>
-            <FormattedMessage
-              id="ui-plugin-find-finc-metadata-collection.modal.totalSelected"
-              values={{ count: checkedRecordsLength }}
-            />
-          </div>
-          <Button
-            buttonStyle="primary"
-            data-test-find-collection-modal-save
-            disabled={!isEditable}
-            marginBottom0
-            onClick={saveMultiple}
-          >
-            <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.save" />
-          </Button>
-        </ >
+        <div>
+          <FormattedMessage
+            id="ui-plugin-find-finc-metadata-collection.modal.totalSelected"
+            values={{ count: checkedRecordsLength }}
+          />
+        </div>
+        <Button
+          buttonStyle="primary"
+          data-test-find-collection-modal-save
+          disabled={!isEditable}
+          marginBottom0
+          onClick={saveMultiple}
+        >
+          <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.save" />
+        </Button>
       </div>
     </PaneFooter>
   );
@@ -223,6 +221,7 @@ const CollectionsView = ({
         initialSortState={{ sort: 'label' }}
         queryGetter={queryGetter}
         querySetter={querySetter}
+        setQueryOnMount
         syncToLocationSearch={false}
       >
         {
@@ -243,6 +242,7 @@ const CollectionsView = ({
               <Paneset>
                 {filterPaneIsVisible &&
                   <Pane
+                    data-testid="find-collection-filter-pane"
                     defaultWidth="20%"
                     id="plugin-find-collection-filter-pane"
                     lastMenu={
@@ -261,7 +261,13 @@ const CollectionsView = ({
                           id="collectionSearchField"
                           inputRef={searchField}
                           name="query"
-                          onChange={getSearchHandlers().query}
+                          onChange={(e) => {
+                            if (e.target.value) {
+                              getSearchHandlers().query(e);
+                            } else {
+                              getSearchHandlers().reset();
+                            }
+                          }}
                           onClear={getSearchHandlers().reset}
                           value={searchValue.query}
                         />
@@ -296,6 +302,7 @@ const CollectionsView = ({
                   </Pane>
                 }
                 <Pane
+                  data-testid="find-collection-list-pane"
                   defaultWidth="fill"
                   firstMenu={renderResultsFirstMenu(activeFilters)}
                   footer={footer}
