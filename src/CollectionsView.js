@@ -242,6 +242,7 @@ const CollectionsView = ({
               <Paneset>
                 {filterPaneIsVisible &&
                   <Pane
+                    data-testid="find-collection-filter-pane"
                     defaultWidth="20%"
                     id="plugin-find-collection-filter-pane"
                     lastMenu={
@@ -301,6 +302,7 @@ const CollectionsView = ({
                   </Pane>
                 }
                 <Pane
+                  data-testid="find-collection-list-pane"
                   defaultWidth="fill"
                   firstMenu={renderResultsFirstMenu(activeFilters)}
                   footer={footer}

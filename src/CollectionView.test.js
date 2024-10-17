@@ -1,7 +1,7 @@
 import { MemoryRouter } from 'react-router-dom';
 
 import { ModuleHierarchyProvider, StripesContext, useStripes } from '@folio/stripes/core';
-import { screen } from '@folio/jest-config-stripes/testing-library/react';
+import { screen, within } from '@folio/jest-config-stripes/testing-library/react';
 import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
 
 import renderWithIntl from '../test/jest/helpers/renderWithIntl';
@@ -98,8 +98,10 @@ describe('CollectionView is editable', () => {
   });
 
   it('filter pane and searchField should be visible', () => {
-    expect(document.querySelector('#plugin-find-collection-filter-pane')).toBeInTheDocument();
-    expect(document.querySelector('#collectionSearchField')).toBeInTheDocument();
+    const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
+    const inputField = within(searchAndFilterPane).getByRole('searchbox');
+    expect(screen.getByTestId('find-collection-filter-pane')).toBeInTheDocument();
+    expect(inputField).toBeInTheDocument();
   });
 
   it('search field should be active element', () => {
@@ -108,19 +110,21 @@ describe('CollectionView is editable', () => {
   });
 
   it('buttons for submit and reset should be visible', () => {
-    expect(document.querySelector('#collectionSubmitSearch')).toBeInTheDocument();
-    expect(document.querySelector('#clickable-reset-all')).toBeInTheDocument();
-    expect(document.querySelector('#collectionSubmitSearch')).toHaveAttribute('disabled');
+    const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
+    const submitSearch = within(searchAndFilterPane).getByRole('button', { name: 'Search' });
+    expect(submitSearch).toBeInTheDocument();
+    expect(within(searchAndFilterPane).getByRole('button', { name: 'Icon' })).toBeInTheDocument();
+    expect(submitSearch).toHaveAttribute('disabled');
   });
 
   test('enter search string should enable submit button', async () => {
-    const searchButton = document.querySelector('#collectionSubmitSearch');
+    const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
+    const submitSearch = within(searchAndFilterPane).getByRole('button', { name: 'Search' });
+    expect(submitSearch).toHaveAttribute('disabled');
 
-    expect(searchButton).toHaveAttribute('disabled');
-
-    await userEvent.type(document.querySelector('#collectionSearchField'), 'collection');
-
-    expect(searchButton).toBeEnabled();
+    const inputField = within(searchAndFilterPane).getByRole('searchbox');
+    await userEvent.type(inputField, 'collection');
+    expect(submitSearch).toBeEnabled();
   });
 
   test('entering search sting and deleting it', async () => {
@@ -133,11 +137,13 @@ describe('CollectionView is editable', () => {
       }
     ];
 
-    const inputField = document.querySelector('#collectionSearchField');
+    const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
+    const inputField = within(searchAndFilterPane).getByRole('searchbox');
     await userEvent.type(inputField, 'Test collection 1');
 
-    expect(document.querySelector('#collectionSubmitSearch')).toBeEnabled();
-    await userEvent.click(document.querySelector('#collectionSubmitSearch'));
+    const submitSearch = within(searchAndFilterPane).getByRole('button', { name: 'Search' });
+    expect(submitSearch).toBeEnabled();
+    await userEvent.click(submitSearch);
 
     renderCollectionsView(
       stripes,
@@ -152,7 +158,7 @@ describe('CollectionView is editable', () => {
 
     expect(document.querySelectorAll('#list-collections .mclRowContainer > [role=row]').length).toEqual(1);
 
-    await userEvent.type(inputField, ' ');
+    await userEvent.clear(inputField);
 
     renderCollectionsView(
       stripes,
@@ -169,18 +175,19 @@ describe('CollectionView is editable', () => {
   });
 
   test('if collapse filter pane is working', async () => {
-    const pluginPaneTitle = document.querySelector('#paneHeaderplugin-find-collection-filter-pane-pane-title');
-    const collapseFilterButton = document.querySelector('[data-test-collapse-filter-pane-button]');
+    const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
+    const searchAndFilterHeadling = within(searchAndFilterPane).getByRole('heading', { name: 'Search & filter' });
+    const collapseFilterButton = within(searchAndFilterPane).getByRole('button', { name: 'Collapse Search & filter pane' });
 
-    expect(pluginPaneTitle).toBeInTheDocument();
+    expect(searchAndFilterHeadling).toBeInTheDocument();
     expect(collapseFilterButton).toBeInTheDocument();
 
-    await userEvent.click(document.querySelector('#clickable-reset-all'));
+    await userEvent.click(within(searchAndFilterPane).getByRole('button', { name: 'Icon' }));
     await userEvent.click(collapseFilterButton);
 
-    expect(pluginPaneTitle).not.toBeInTheDocument();
+    expect(searchAndFilterHeadling).not.toBeInTheDocument();
 
-    const expandFilterButton = document.querySelector('[data-test-expand-filter-pane-button]');
+    const expandFilterButton = screen.getByRole('button', { name: 'Expand Search & filter pane' });
     expect(expandFilterButton).toBeInTheDocument();
 
     const filterCountDisplay = document.querySelector('#expand-filter-pane-button-tooltip-sub');
@@ -191,7 +198,7 @@ describe('CollectionView is editable', () => {
 
     await userEvent.click(expandFilterButton);
 
-    expect(document.querySelector('#paneHeaderplugin-find-collection-filter-pane-pane-title')).toBeInTheDocument();
+    expect(within(screen.getByTestId('find-collection-filter-pane')).getByRole('heading', { name: 'Search & filter' })).toBeInTheDocument();
   });
 
   it('should show a certain amount of results and all columns', async () => {
@@ -199,24 +206,25 @@ describe('CollectionView is editable', () => {
 
     expect(document.querySelectorAll('#list-collections .mclRowContainer > [role=row]').length).toEqual(2);
 
-    expect(document.querySelector('#list-column-label')).toBeInTheDocument();
-    expect(document.querySelector('#list-column-mdsource')).toBeInTheDocument();
-    expect(document.querySelector('#list-column-permitted')).toBeInTheDocument();
-    expect(document.querySelector('#list-column-freecontent')).toBeInTheDocument();
+    const listPane = screen.getByTestId('find-collection-list-pane');
+    expect(within(listPane).getByText('Name')).toBeInTheDocument();
+    expect(within(listPane).getByText('Metadata source')).toBeInTheDocument();
+    expect(within(listPane).getByText('Usage permitted')).toBeInTheDocument();
+    expect(within(listPane).getByText('Free content')).toBeInTheDocument();
   });
 
   test('if select all and click save button is calling function', async () => {
     const selectAllButton = document.querySelector('[data-test-find-records-modal-select-all]');
     expect(selectAllButton).not.toBeChecked();
     await userEvent.click(selectAllButton);
-    await userEvent.click(document.querySelector('[data-test-find-collection-modal-save]'));
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
     expect(onSaveMultiple).toHaveBeenCalled();
   });
 
   test('if select one collection and click save button is calling function', async () => {
     const checkbox = document.querySelector('#list-collections .mclRowContainer [data-row-index="row-0"] input[type="checkbox"]');
-    const saveButton = document.querySelector('[data-test-find-collection-modal-save]');
+    const saveButton = screen.getByRole('button', { name: 'Save' });
 
     expect(checkbox).toBeInTheDocument();
     expect(saveButton).toBeInTheDocument();
@@ -242,7 +250,7 @@ describe('CollectionView NOT editable', () => {
   });
 
   test('if save button is disabled', async () => {
-    const saveButton = document.querySelector('[data-test-find-collection-modal-save]');
+    const saveButton = screen.getByRole('button', { name: 'Save' });
     const selectAllButton = document.querySelector('[data-test-find-records-modal-select-all]');
 
     expect(selectAllButton).not.toBeChecked();
