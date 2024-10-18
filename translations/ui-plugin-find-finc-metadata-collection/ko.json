@@ -3,7 +3,7 @@
     "modal.label": "메타데이터 컬렉션 선택",
     "searchButton.title": "메타데이터 컬렉션 찾기",
     "button.close": "닫기",
-    "modal.totalSelected": "선택한 총: {수}",
+    "modal.totalSelected": "선택한 총: {count}",
     "button.save": "저장",
     "label": "이름",
     "mdSource": "메타데이터 소스",
