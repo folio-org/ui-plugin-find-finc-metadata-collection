@@ -8,9 +8,10 @@ import renderWithIntl from '../test/jest/helpers/renderWithIntl';
 import CollectionsView from './CollectionsView';
 
 jest.mock('react-virtualized-auto-sizer', () => ({ children }) => children({ width: 1920, height: 1080 }));
-
-const sourceLoaded = { source: { pending: jest.fn(() => false), totalCount: jest.fn(() => 1), loaded: jest.fn(() => true) } };
-const sourcePending = { source: { pending: jest.fn(() => true), totalCount: jest.fn(() => 0), loaded: jest.fn(() => false) } };
+const mockReset = jest.fn();
+const mockGetSearchHandlers = jest.fn(() => ({ reset: mockReset }));
+const sourceLoaded = { source: { pending: jest.fn(() => false), totalCount: jest.fn(() => 1), loaded: jest.fn(() => true) }, getSearchHandlers: mockGetSearchHandlers };
+const sourcePending = { source: { pending: jest.fn(() => true), totalCount: jest.fn(() => 0), loaded: jest.fn(() => false) }, getSearchHandlers: mockGetSearchHandlers };
 
 const ARRAY_COLLECTION = [
   {
@@ -159,6 +160,7 @@ describe('CollectionView is editable', () => {
     expect(document.querySelectorAll('#list-collections .mclRowContainer > [role=row]').length).toEqual(1);
 
     await userEvent.clear(inputField);
+    expect(mockReset).toHaveBeenCalled();
 
     renderCollectionsView(
       stripes,
@@ -202,7 +204,8 @@ describe('CollectionView is editable', () => {
   });
 
   it('should show a certain amount of results and all columns', async () => {
-    await userEvent.click(document.querySelector('#clickable-reset-all'));
+    const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
+    await userEvent.click(within(searchAndFilterPane).getByRole('button', { name: 'Icon' }));
 
     expect(document.querySelectorAll('#list-collections .mclRowContainer > [role=row]').length).toEqual(2);
 
