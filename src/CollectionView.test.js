@@ -13,6 +13,7 @@ const mockReset = jest.fn();
 
 jest.mock('@folio/stripes/smart-components', () => {
   let queryValue = '';
+  const onSubmitSearch = jest.fn(e => e.preventDefault());
 
   return {
     ...jest.requireActual('@folio/stripes/smart-components'),
@@ -35,7 +36,7 @@ jest.mock('@folio/stripes/smart-components', () => {
           reset: mockReset,
         }),
         onSort: jest.fn(),
-        onSubmitSearch: jest.fn(),
+        onSubmitSearch,
         resetAll: jest.fn(),
         searchChanged: false,
         searchValue: {
