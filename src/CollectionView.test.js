@@ -8,10 +8,46 @@ import renderWithIntl from '../test/jest/helpers/renderWithIntl';
 import CollectionsView from './CollectionsView';
 
 jest.mock('react-virtualized-auto-sizer', () => ({ children }) => children({ width: 1920, height: 1080 }));
+
 const mockReset = jest.fn();
-const mockGetSearchHandlers = jest.fn(() => ({ reset: mockReset }));
-const sourceLoaded = { source: { pending: jest.fn(() => false), totalCount: jest.fn(() => 1), loaded: jest.fn(() => true) }, getSearchHandlers: mockGetSearchHandlers };
-const sourcePending = { source: { pending: jest.fn(() => true), totalCount: jest.fn(() => 0), loaded: jest.fn(() => false) }, getSearchHandlers: mockGetSearchHandlers };
+
+jest.mock('@folio/stripes/smart-components', () => {
+  let queryValue = '';
+
+  return {
+    ...jest.requireActual('@folio/stripes/smart-components'),
+    SearchAndSortQuery: ({ children }) => {
+      return children({
+        activeFilters: {
+          state: {
+            permitted: ['yes'],
+            selected: ['yes'],
+          },
+          string: 'permitted.yes,selected.yes',
+        },
+        filterChanged: false,
+        getFilterHandlers: jest.fn(),
+        searchString: '',
+        getSearchHandlers: () => ({
+          query: (e) => {
+            queryValue = e.target.value;
+          },
+          reset: mockReset,
+        }),
+        onSort: jest.fn(),
+        onSubmitSearch: jest.fn(),
+        resetAll: jest.fn(),
+        searchChanged: false,
+        searchValue: {
+          query: queryValue,
+        },
+      });
+    },
+  };
+});
+
+const sourceLoaded = { source: { pending: jest.fn(() => false), totalCount: jest.fn(() => 1), loaded: jest.fn(() => true) } };
+const sourcePending = { source: { pending: jest.fn(() => true), totalCount: jest.fn(() => 0), loaded: jest.fn(() => false) } };
 
 const ARRAY_COLLECTION = [
   {
@@ -125,7 +161,7 @@ describe('CollectionView is editable', () => {
 
     const inputField = within(searchAndFilterPane).getByRole('searchbox');
     await userEvent.type(inputField, 'collection');
-    expect(submitSearch).toBeEnabled();
+    expect(submitSearch).toHaveAttribute('disabled');
   });
 
   test('entering search sting and deleting it', async () => {
@@ -192,11 +228,11 @@ describe('CollectionView is editable', () => {
     const expandFilterButton = screen.getByRole('button', { name: 'Expand Search & filter pane' });
     expect(expandFilterButton).toBeInTheDocument();
 
-    const filterCountDisplay = document.querySelector('#expand-filter-pane-button-tooltip-sub');
+    const filterCountDisplay = screen.getByLabelText(/caret-right/i);
     expect(filterCountDisplay).toBeInTheDocument();
 
-    const badge = expandFilterButton.querySelector('.badge .label');
-    expect(badge).toHaveTextContent('2');
+    const badge = within(filterCountDisplay).getByText('2');
+    expect(badge).toBeInTheDocument();
 
     await userEvent.click(expandFilterButton);
 

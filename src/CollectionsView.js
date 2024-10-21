@@ -237,7 +237,6 @@ const CollectionsView = ({
             searchValue,
           }) => {
             const disableReset = () => (!filterChanged && !searchChanged);
-
             return (
               <Paneset>
                 {filterPaneIsVisible &&
@@ -339,7 +338,7 @@ const CollectionsView = ({
 
 CollectionsView.propTypes = {
   collectionIds: PropTypes.arrayOf(PropTypes.object),
-  contentData: PropTypes.object,
+  contentData: PropTypes.arrayOf(PropTypes.object),
   contentRef: PropTypes.object,
   filterData: PropTypes.shape({
     mdSources: PropTypes.arrayOf(PropTypes.object),
