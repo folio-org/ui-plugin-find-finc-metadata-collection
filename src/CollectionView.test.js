@@ -1,7 +1,6 @@
 import { MemoryRouter } from 'react-router-dom';
 
 import { ModuleHierarchyProvider, StripesContext, useStripes } from '@folio/stripes/core';
-import { screen, within } from '@folio/jest-config-stripes/testing-library/react';
 import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
 
 import renderWithIntl from '../test/jest/helpers/renderWithIntl';
@@ -96,10 +95,8 @@ describe('CollectionView is editable', () => {
   });
 
   it('filter pane and searchField should be visible', () => {
-    const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
-    const inputField = within(searchAndFilterPane).getByRole('searchbox');
-    expect(screen.getByTestId('find-collection-filter-pane')).toBeInTheDocument();
-    expect(inputField).toBeInTheDocument();
+    expect(document.querySelector('#plugin-find-collection-filter-pane')).toBeInTheDocument();
+    expect(document.querySelector('#collectionSearchField')).toBeInTheDocument();
   });
 
   it('search field should be active element', () => {
@@ -108,74 +105,70 @@ describe('CollectionView is editable', () => {
   });
 
   it('buttons for submit and reset should be visible', () => {
-    const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
-    const submitSearch = within(searchAndFilterPane).getByRole('button', { name: 'Search' });
-    expect(submitSearch).toBeInTheDocument();
-    expect(within(searchAndFilterPane).getByRole('button', { name: 'Icon' })).toBeInTheDocument();
-    expect(submitSearch).toHaveAttribute('disabled');
+    expect(document.querySelector('#collectionSubmitSearch')).toBeInTheDocument();
+    expect(document.querySelector('#clickable-reset-all')).toBeInTheDocument();
+    expect(document.querySelector('#collectionSubmitSearch')).toHaveAttribute('disabled');
   });
 
   test('enter search string should enable submit button', async () => {
-    const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
-    const inputField = within(searchAndFilterPane).getByRole('searchbox');
-    await userEvent.type(inputField, 'Test collection 1');
+    const searchButton = document.querySelector('#collectionSubmitSearch');
 
-    const submitSearch = within(searchAndFilterPane).getByRole('button', { name: 'Search' });
-    expect(submitSearch).toBeEnabled();
+    expect(searchButton).toHaveAttribute('disabled');
+
+    await userEvent.type(document.querySelector('#collectionSearchField'), 'collection');
+
+    expect(searchButton).toBeEnabled();
   });
 
   test('if collapse filter pane is working', async () => {
-    const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
-    const searchAndFilterHeadling = within(searchAndFilterPane).getByRole('heading', { name: 'Search & filter' });
-    const collapseFilterButton = within(searchAndFilterPane).getByRole('button', { name: 'Collapse Search & filter pane' });
+    const pluginPaneTitle = document.querySelector('#paneHeaderplugin-find-collection-filter-pane-pane-title');
+    const collapseFilterButton = document.querySelector('[data-test-collapse-filter-pane-button]');
 
-    expect(searchAndFilterHeadling).toBeInTheDocument();
+    expect(pluginPaneTitle).toBeInTheDocument();
     expect(collapseFilterButton).toBeInTheDocument();
 
-    await userEvent.click(within(searchAndFilterPane).getByRole('button', { name: 'Icon' }));
+    await userEvent.click(document.querySelector('#clickable-reset-all'));
     await userEvent.click(collapseFilterButton);
 
-    expect(searchAndFilterHeadling).not.toBeInTheDocument();
+    expect(pluginPaneTitle).not.toBeInTheDocument();
 
-    const expandFilterButton = screen.getByRole('button', { name: 'Expand Search & filter pane' });
+    const expandFilterButton = document.querySelector('[data-test-expand-filter-pane-button]');
     expect(expandFilterButton).toBeInTheDocument();
 
-    const filterCountDisplay = screen.getByLabelText(/caret-right/i);
+    const filterCountDisplay = document.querySelector('#expand-filter-pane-button-tooltip-sub');
     expect(filterCountDisplay).toBeInTheDocument();
 
-    const badge = within(filterCountDisplay).getByText('2');
-    expect(badge).toBeInTheDocument();
+    const badge = expandFilterButton.querySelector('.badge .label');
+    expect(badge).toHaveTextContent('2');
 
     await userEvent.click(expandFilterButton);
 
-    expect(within(screen.getByTestId('find-collection-filter-pane')).getByRole('heading', { name: 'Search & filter' })).toBeInTheDocument();
+    expect(document.querySelector('#paneHeaderplugin-find-collection-filter-pane-pane-title')).toBeInTheDocument();
   });
 
   it('should show a certain amount of results and all columns', async () => {
-    const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
-    await userEvent.click(within(searchAndFilterPane).getByRole('button', { name: 'Icon' }));
+    await userEvent.click(document.querySelector('#clickable-reset-all'));
 
     expect(document.querySelectorAll('#list-collections .mclRowContainer > [role=row]').length).toEqual(2);
 
-    const listPane = screen.getByTestId('find-collection-list-pane');
-    expect(within(listPane).getByText('Name')).toBeInTheDocument();
-    expect(within(listPane).getByText('Metadata source')).toBeInTheDocument();
-    expect(within(listPane).getByText('Usage permitted')).toBeInTheDocument();
-    expect(within(listPane).getByText('Free content')).toBeInTheDocument();
+    expect(document.querySelector('#list-column-label')).toBeInTheDocument();
+    expect(document.querySelector('#list-column-mdsource')).toBeInTheDocument();
+    expect(document.querySelector('#list-column-permitted')).toBeInTheDocument();
+    expect(document.querySelector('#list-column-freecontent')).toBeInTheDocument();
   });
 
   test('if select all and click save button is calling function', async () => {
     const selectAllButton = document.querySelector('[data-test-find-records-modal-select-all]');
     expect(selectAllButton).not.toBeChecked();
     await userEvent.click(selectAllButton);
-    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await userEvent.click(document.querySelector('[data-test-find-collection-modal-save]'));
 
     expect(onSaveMultiple).toHaveBeenCalled();
   });
 
   test('if select one collection and click save button is calling function', async () => {
     const checkbox = document.querySelector('#list-collections .mclRowContainer [data-row-index="row-0"] input[type="checkbox"]');
-    const saveButton = screen.getByRole('button', { name: 'Save' });
+    const saveButton = document.querySelector('[data-test-find-collection-modal-save]');
 
     expect(checkbox).toBeInTheDocument();
     expect(saveButton).toBeInTheDocument();
@@ -201,7 +194,7 @@ describe('CollectionView NOT editable', () => {
   });
 
   test('if save button is disabled', async () => {
-    const saveButton = screen.getByRole('button', { name: 'Save' });
+    const saveButton = document.querySelector('[data-test-find-collection-modal-save]');
     const selectAllButton = document.querySelector('[data-test-find-records-modal-select-all]');
 
     expect(selectAllButton).not.toBeChecked();
