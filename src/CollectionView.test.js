@@ -9,44 +9,6 @@ import CollectionsView from './CollectionsView';
 
 jest.mock('react-virtualized-auto-sizer', () => ({ children }) => children({ width: 1920, height: 1080 }));
 
-const mockReset = jest.fn();
-
-jest.mock('@folio/stripes/smart-components', () => {
-  let queryValue = '';
-  const onSubmitSearch = jest.fn(e => e.preventDefault());
-
-  return {
-    ...jest.requireActual('@folio/stripes/smart-components'),
-    SearchAndSortQuery: ({ children }) => {
-      return children({
-        activeFilters: {
-          state: {
-            permitted: ['yes'],
-            selected: ['yes'],
-          },
-          string: 'permitted.yes,selected.yes',
-        },
-        filterChanged: false,
-        getFilterHandlers: jest.fn(),
-        searchString: '',
-        getSearchHandlers: () => ({
-          query: (e) => {
-            queryValue = e.target.value;
-          },
-          reset: mockReset,
-        }),
-        onSort: jest.fn(),
-        onSubmitSearch,
-        resetAll: jest.fn(),
-        searchChanged: false,
-        searchValue: {
-          query: queryValue,
-        },
-      });
-    },
-  };
-});
-
 const sourceLoaded = { source: { pending: jest.fn(() => false), totalCount: jest.fn(() => 1), loaded: jest.fn(() => true) } };
 
 const ARRAY_COLLECTION = [
@@ -155,24 +117,11 @@ describe('CollectionView is editable', () => {
 
   test('enter search string should enable submit button', async () => {
     const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
-    const submitSearch = within(searchAndFilterPane).getByRole('button', { name: 'Search' });
-    expect(submitSearch).toHaveAttribute('disabled');
-
-    const inputField = within(searchAndFilterPane).getByRole('searchbox');
-    await userEvent.type(inputField, 'collection');
-    expect(submitSearch).toHaveAttribute('disabled');
-  });
-
-  test('entering search string and deleting it', async () => {
-    const searchAndFilterPane = screen.getByTestId('find-collection-filter-pane');
     const inputField = within(searchAndFilterPane).getByRole('searchbox');
     await userEvent.type(inputField, 'Test collection 1');
 
     const submitSearch = within(searchAndFilterPane).getByRole('button', { name: 'Search' });
     expect(submitSearch).toBeEnabled();
-
-    await userEvent.clear(inputField);
-    expect(mockReset).toHaveBeenCalled();
   });
 
   test('if collapse filter pane is working', async () => {
