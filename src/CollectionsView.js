@@ -164,23 +164,21 @@ const CollectionsView = ({
         >
           <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.close" />
         </Button>
-        <>
-          <div>
-            <FormattedMessage
-              id="ui-plugin-find-finc-metadata-collection.modal.totalSelected"
-              values={{ count: checkedRecordsLength }}
-            />
-          </div>
-          <Button
-            buttonStyle="primary"
-            data-test-find-collection-modal-save
-            disabled={!isEditable}
-            marginBottom0
-            onClick={saveMultiple}
-          >
-            <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.save" />
-          </Button>
-        </ >
+        <div>
+          <FormattedMessage
+            id="ui-plugin-find-finc-metadata-collection.modal.totalSelected"
+            values={{ count: checkedRecordsLength }}
+          />
+        </div>
+        <Button
+          buttonStyle="primary"
+          data-test-find-collection-modal-save
+          disabled={!isEditable}
+          marginBottom0
+          onClick={saveMultiple}
+        >
+          <FormattedMessage id="ui-plugin-find-finc-metadata-collection.button.save" />
+        </Button>
       </div>
     </PaneFooter>
   );
@@ -223,6 +221,7 @@ const CollectionsView = ({
         initialSortState={{ sort: 'label' }}
         queryGetter={queryGetter}
         querySetter={querySetter}
+        setQueryOnMount
         syncToLocationSearch={false}
       >
         {
@@ -238,7 +237,6 @@ const CollectionsView = ({
             searchValue,
           }) => {
             const disableReset = () => (!filterChanged && !searchChanged);
-
             return (
               <Paneset>
                 {filterPaneIsVisible &&
@@ -261,7 +259,13 @@ const CollectionsView = ({
                           id="collectionSearchField"
                           inputRef={searchField}
                           name="query"
-                          onChange={getSearchHandlers().query}
+                          onChange={(e) => {
+                            if (e.target.value) {
+                              getSearchHandlers().query(e);
+                            } else {
+                              getSearchHandlers().reset();
+                            }
+                          }}
                           onClear={getSearchHandlers().reset}
                           value={searchValue.query}
                         />
@@ -332,7 +336,7 @@ const CollectionsView = ({
 
 CollectionsView.propTypes = {
   collectionIds: PropTypes.arrayOf(PropTypes.object),
-  contentData: PropTypes.object,
+  contentData: PropTypes.arrayOf(PropTypes.object),
   contentRef: PropTypes.object,
   filterData: PropTypes.shape({
     mdSources: PropTypes.arrayOf(PropTypes.object),
