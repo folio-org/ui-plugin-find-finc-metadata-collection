@@ -1,6 +1,6 @@
 {
   "name": "@folio/plugin-find-finc-metadata-collection",
-  "version": "6.1.0",
+  "version": "7.0.0",
   "description": "Finder plugin for finc metadata collections",
   "repository": "folio-org/ui-plugin-find-finc-metadata-collection",
   "publishConfig": {
@@ -14,7 +14,7 @@
     "pluginType": "find-finc-metadata-collection",
     "displayName": "ui-plugin-find-finc-metadata-collection.meta.title",
     "okapiInterfaces": {
-      "finc-config/metadata-collections": "2.0"
+      "finc-config-metadata-collections": "1.0"
     }
   },
   "scripts": {
