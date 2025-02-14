@@ -1,6 +1,6 @@
 {
   "name": "@folio/plugin-find-finc-metadata-collection",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "description": "Finder plugin for finc metadata collections",
   "repository": "folio-org/ui-plugin-find-finc-metadata-collection",
   "publishConfig": {
@@ -22,7 +22,7 @@
     "test:jest": "jest --ci --coverage",
     "lint": "eslint .",
     "build-mod-descriptor": "stripes mod descriptor --full --strict | jq '.[]' > module-descriptor.json ",
-    "formatjs-compile": "formatjs compile-folder --ast --format simple ./translations/ui-plugin-find-finc-metadata-collection ./translations/ui-plugin-find-finc-metadata-collection/compiled"
+    "formatjs-compile": "stripes translate compile"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
@@ -34,11 +34,10 @@
     "@folio/stripes-components": "^12.2.3",
     "@folio/stripes-core": "^10.2.2",
     "@folio/stripes-smart-components": "^9.2.2",
-    "@formatjs/cli": "^6.1.3",
     "eslint": "^7.32.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-intl": "^6.4.4",
+    "react-intl": "^7.1.5",
     "react-router-dom": "^5.2.0"
   },
   "dependencies": {
@@ -50,7 +49,7 @@
     "@folio/stripes": "^9.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-intl": "^6.4.4",
+    "react-intl": "^7.1.5",
     "react-router-dom": "^5.2.0"
   }
 }
