@@ -2,6 +2,7 @@
 
 ## 8.0.0 (IN PROGRESS)
 * Migrate react-intl to v7 ([UIFC-417](https://folio-org.atlassian.net/browse/UIFC-417))
+* Migrate stripes dependencies to their Sunflower versions ([UIFC-416](https://folio-org.atlassian.net/browse/UIFC-416))
 
 ## [7.0.0](https://github.com/folio-org/ui-plugin-find-finc-metadata-collection/tree/v7.0.0) (2024-11-04)
 * Use functional components instead of class components ([UIFC-362](https://folio-org.atlassian.net/browse/UIFC-362))
@@ -9,7 +10,6 @@
 * Fix GitHub Actions workflow not running for tags ([FOLIO-4086](https://folio-org.atlassian.net/browse/FOLIO-4086))
 * Deleting search string via keyboard does not update search results ([UIFC-358](https://folio-org.atlassian.net/browse/UIFC-358))
 * Update required interfaces ([UIFC-386](https://folio-org.atlassian.net/browse/UIFC-386))
-* Migrate stripes dependencies to their Sunflower versions ([UIFC-416](https://folio-org.atlassian.net/browse/UIFC-416))
 
 ## [6.1.0](https://github.com/folio-org/ui-plugin-find-finc-metadata-collection/tree/v6.1.0) (2024-03-20)
 * Translation updates
