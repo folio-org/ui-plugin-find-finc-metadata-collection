@@ -2,7 +2,14 @@
   "parser": "@babel/eslint-parser",
   "extends": "@folio/eslint-config-stripes",
   "rules": {
-    "implicit-arrow-linebreak": "off"
+    "implicit-arrow-linebreak": "off",
+    "react/forbid-prop-types": [
+      // rule was removed from eslint-config-stripes in v8.0.0
+      "warn",
+      {
+        "forbid": ["any", "array"]
+      }
+    ]
   },
   "env": {
     "jest": true
