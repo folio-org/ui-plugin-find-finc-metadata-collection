@@ -3,7 +3,7 @@
     "modal.label": "選擇詮釋資料集",
     "searchButton.title": "尋找詮釋資料集",
     "button.close": "關閉",
-    "modal.totalSelected": "已選擇總數： {count}",
+    "modal.totalSelected": "已選擇總數 :  {count}",
     "button.save": "儲存",
     "label": "名稱",
     "mdSource": "詮釋資料來源",

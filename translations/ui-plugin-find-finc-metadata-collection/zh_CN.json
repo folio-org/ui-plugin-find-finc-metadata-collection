@@ -3,7 +3,7 @@
     "modal.label": "选择元数据集合",
     "searchButton.title": "查找元数据集合",
     "button.close": "关闭",
-    "modal.totalSelected": "已选总数： {count}",
+    "modal.totalSelected": "已选总数 :  {count}",
     "button.save": "保存",
     "label": "名称",
     "mdSource": "元数据来源",
