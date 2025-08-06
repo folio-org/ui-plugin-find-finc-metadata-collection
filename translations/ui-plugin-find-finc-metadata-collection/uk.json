@@ -13,7 +13,7 @@
     "assigned": "Призначено",
     "modal.paneTitle": "Колекції метаданих",
     "isEmptyMessage": "Результатів не знайдено. Перевірте, будь ласка, свої фільтри.",
-    "filterValue.yes": "Yes",
-    "filterValue.no": "No",
-    "filterValue.undetermined": "Undetermined"
+    "filterValue.yes": "Так",
+    "filterValue.no": "Ні",
+    "filterValue.undetermined": "Невизначено"
 }
