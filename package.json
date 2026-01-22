@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "dom-helpers": "^3.4.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.23",
     "prop-types": "^15.6.0"
   },
   "peerDependencies": {
