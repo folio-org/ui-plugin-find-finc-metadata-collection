@@ -1,6 +1,7 @@
 # Change history for ui-plugin-find-finc-metadata-collection
 
 ## 8.1.0 (IN PROGRESS)
+* Add CODEOWNERS
 
 ## [8.0.0](https://github.com/folio-org/ui-plugin-find-finc-metadata-collection/tree/v8.0.0) (2025-03-13)
 * Migrate react-intl to v7 ([UIFC-417](https://folio-org.atlassian.net/browse/UIFC-417))
