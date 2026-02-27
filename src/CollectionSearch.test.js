@@ -13,7 +13,7 @@ jest.mock('./CollectionSearchModal', () => jest.fn(({ open, onClose }) => (
     {open && (
       <div>
         <p>CollectionSearchModal</p>
-        <button onClick={onClose} aria-label="Dismiss modal" type="button" />
+        <button aria-label="Dismiss modal" onClick={onClose} type="button" />
       </div>
     )}
   </div>
@@ -22,14 +22,13 @@ jest.mock('./CollectionSearchModal', () => jest.fn(({ open, onClose }) => (
 const closeModal = jest.fn();
 const isOpen = true;
 
-const renderCollectionSearch = (renderTrigger) =>
-  renderWithIntl(
-    <CollectionSearch
-      renderTrigger={renderTrigger}
-      onClose={closeModal}
-      open={isOpen}
-    />
-  );
+const renderCollectionSearch = (renderTrigger) => renderWithIntl(
+  <CollectionSearch
+    onClose={closeModal}
+    open={isOpen}
+    renderTrigger={renderTrigger}
+  />
+);
 
 describe('CollectionSearch component', () => {
   it('should display search collection button', () => {
