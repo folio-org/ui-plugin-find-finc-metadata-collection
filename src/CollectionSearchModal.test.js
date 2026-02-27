@@ -7,7 +7,7 @@ import CollectionSearchModal from './CollectionSearchModal';
 jest.mock('./CollectionSearchContainer', () => {
   return ({ selectRecordsContainer }) => (
     <>
-      <button type="button" onClick={() => selectRecordsContainer({}, {})}>
+      <button onClick={() => selectRecordsContainer({}, {})} type="button">
         SelectCollection
       </button>
     </>
@@ -17,10 +17,9 @@ jest.mock('./CollectionSearchContainer', () => {
 const onCloseModal = jest.fn();
 const selectRecordsModal = jest.fn();
 
-const renderCollectionSearchModal = (open = true, onClose = onCloseModal) =>
-  renderWithIntl(
-    <CollectionSearchModal selectRecordsModal={selectRecordsModal} onClose={onClose} open={open} />
-  );
+const renderCollectionSearchModal = (open = true, onClose = onCloseModal) => renderWithIntl(
+  <CollectionSearchModal onClose={onClose} open={open} selectRecordsModal={selectRecordsModal} />
+);
 
 describe('CollectionSearchModal component', () => {
   it('should display collection search modal', () => {

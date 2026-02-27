@@ -22,7 +22,7 @@ const renderCollectionFilter = () => (
       }}
       filterData={data}
       filterHandlers={mockFilterHandlers}
-    />,
+    />
   )
 );
 
@@ -58,7 +58,9 @@ describe('CollectionFilters component', () => {
     await userEvent.click(document.querySelector('#mdSource-filter'));
 
     // select first mdSource in selectbox
-    const firstMdSource = document.querySelector('#sl-container-mdSource-filter ul[aria-labelledby="sl-label-mdSource-filter"] li:first-child');
+    const firstMdSource = document.querySelector(
+      '#sl-container-mdSource-filter ul[aria-labelledby="sl-label-mdSource-filter"] li:first-child'
+    );
     expect(firstMdSource).toBeInTheDocument();
     await userEvent.click(firstMdSource);
 

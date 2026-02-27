@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import {
+  useEffect,
+  useState,
+} from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import {
@@ -38,6 +41,7 @@ const CollectionFilters = ({
     filterConfig.forEach((filter) => {
       const newValues = [];
       let values = {};
+
       if (filter === 'mdSource') {
         // get filter values from okapi
         values = filterData[filter] || [];
@@ -68,7 +72,7 @@ const CollectionFilters = ({
     if (Object.keys(newState).length) {
       setFiltersState(prevState => ({
         ...prevState,
-        ...newState
+        ...newState,
       }));
     }
   }, [filterData, filtersState]);
@@ -148,8 +152,8 @@ const CollectionFilters = ({
 
 CollectionFilters.propTypes = {
   activeFilters: PropTypes.object,
-  filterHandlers: PropTypes.object,
   filterData: PropTypes.object,
+  filterHandlers: PropTypes.object,
 };
 
 export default CollectionFilters;

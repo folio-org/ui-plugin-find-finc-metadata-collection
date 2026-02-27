@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
 import { noop } from 'lodash';
+import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Modal } from '@folio/stripes/components';
 
-import CollectionSearchContainer from './CollectionSearchContainer';
 import css from './CollectionSearch.css';
+import CollectionSearchContainer from './CollectionSearchContainer';
 
 const CollectionSearchModal = ({
   collectionIds,
@@ -27,13 +27,13 @@ const CollectionSearchModal = ({
 
   return (
     <Modal
+      ref={internalModalRef}
       contentClass={css.modalContent}
       dismissible
       enforceFocus={false}
       label={<FormattedMessage id="ui-plugin-find-finc-metadata-collection.modal.label" />}
       onClose={onClose}
       open={open}
-      ref={internalModalRef}
       size="large"
     >
       <CollectionSearchContainer

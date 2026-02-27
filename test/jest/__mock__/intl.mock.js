@@ -1,9 +1,11 @@
 import { IntlProvider } from 'react-intl';
 
 import componentsTranslations from '@folio/stripes-components/translations/stripes-components/en';
-import smartComponentsTranslations from '@folio/stripes-smart-components/translations/stripes-smart-components/en';
 import stripesCoreTranslations from '@folio/stripes-core/translations/stripes-core/en';
-import findFincMetadataCollectionProviderTranslations from '../../../translations/ui-plugin-find-finc-metadata-collection/en';
+import smartComponentsTranslations from '@folio/stripes-smart-components/translations/stripes-smart-components/en';
+
+import findFincMetadataCollectionProviderTranslations
+  from '../../../translations/ui-plugin-find-finc-metadata-collection/en';
 
 const prefixKeys = (translations, prefix) => {
   return Object.keys(translations).reduce(
