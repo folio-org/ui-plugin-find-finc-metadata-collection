@@ -8,26 +8,26 @@ jest.mock('./CollectionsView', () => jest.fn(() => null));
 
 jest.mock('@folio/stripes/smart-components', () => ({
   ...jest.requireActual('@folio/stripes/smart-components'),
-  StripesConnectedSource: jest.fn()
+  StripesConnectedSource: jest.fn(),
 }));
 
 const mutator = {
   query: {
     update: jest.fn(),
-  }
+  },
 };
 
 const resources = {
   metadataCollections: {
-    records: []
+    records: [],
   },
-  query: {}
+  query: {},
 };
 
 const stripes = {
   logger: {
-    log: jest.fn()
-  }
+    log: jest.fn(),
+  },
 };
 
 const renderCollectionSearchContainer = (props = {}) => (render(
@@ -38,7 +38,7 @@ const renderCollectionSearchContainer = (props = {}) => (render(
     resources={resources}
     stripes={stripes}
     {...props}
-  />,
+  />
 ));
 
 describe('CollectionSearchContainer component', () => {
@@ -49,12 +49,11 @@ describe('CollectionSearchContainer component', () => {
 
     mockSource = {
       update: jest.fn(),
-      fetchMore: jest.fn()
+      fetchMore: jest.fn(),
     };
 
     StripesConnectedSource.mockImplementation(() => mockSource);
   });
-
 
   it('should call the update method of source when resources or mutator changes', () => {
     renderCollectionSearchContainer();
@@ -99,7 +98,7 @@ describe('CollectionSearchContainer component', () => {
   it('should return the query from resources when queryGetter is called', () => {
     const customResources = {
       ...resources,
-      query: { query: 'test' }
+      query: { query: 'test' },
     };
 
     renderCollectionSearchContainer({ resources: customResources });

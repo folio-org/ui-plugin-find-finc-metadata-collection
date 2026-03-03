@@ -1,14 +1,24 @@
 import { MemoryRouter } from 'react-router-dom';
 
-import { ModuleHierarchyProvider, StripesContext, useStripes } from '@folio/stripes/core';
 import userEvent from '@folio/jest-config-stripes/testing-library/user-event';
+import {
+  ModuleHierarchyProvider,
+  StripesContext,
+  useStripes,
+} from '@folio/stripes/core';
 
 import renderWithIntl from '../test/jest/helpers/renderWithIntl';
 import CollectionsView from './CollectionsView';
 
 jest.mock('react-virtualized-auto-sizer', () => ({ children }) => children({ width: 1920, height: 1080 }));
 
-const sourceLoaded = { source: { pending: jest.fn(() => false), totalCount: jest.fn(() => 1), loaded: jest.fn(() => true) } };
+const sourceLoaded = {
+  source: {
+    pending: jest.fn(() => false),
+    totalCount: jest.fn(() => 1),
+    loaded: jest.fn(() => true),
+  },
+};
 
 const ARRAY_COLLECTION = [
   {
@@ -22,18 +32,18 @@ const ARRAY_COLLECTION = [
     label: 'Test collection 2',
     permitted: 'yes',
     selected: 'yes',
-  }
+  },
 ];
 
 const tinySources = [
   {
-    'id': '6dd325f8-b1d5-4568-a0d7-aecf6b8d6697',
-    'label': 'Cambridge University Press Journals'
+    id: '6dd325f8-b1d5-4568-a0d7-aecf6b8d6697',
+    label: 'Cambridge University Press Journals',
   },
   {
-    'id': '8ac1e1cf-5128-46b9-b57b-52bbfca7261b',
-    'label': 'Oxford Scholarship Online'
-  }
+    id: '8ac1e1cf-5128-46b9-b57b-52bbfca7261b',
+    label: 'Oxford Scholarship Online',
+  },
 ];
 
 const onSearchComplete = jest.fn();
@@ -55,21 +65,21 @@ const renderCollectionsView = (
         <ModuleHierarchyProvider module="@folio/plugin-find-finc-metadata-collection">
           <CollectionsView
             contentData={metadatacollections}
-            filtered={metadatacollections}
-            isEditable={isEditable}
-            selectedRecordId=""
-            onNeedMoreData={jest.fn()}
-            isEmptyMessage={isEmptyMessage}
             filterData={{ mdSources: tinySources }}
+            filtered={metadatacollections}
+            history={history}
+            isEditable={isEditable}
+            isEmptyMessage={isEmptyMessage}
+            location={{ pathname: '', search: '' }}
+            onClose={onCloseModal}
+            onNeedMoreData={jest.fn()}
+            onSaveMultiple={onSaveMultiple}
+            onSearchComplete={onSearchComplete}
             queryGetter={jest.fn()}
             querySetter={jest.fn()}
             searchString=""
-            onClose={onCloseModal}
-            onSaveMultiple={onSaveMultiple}
+            selectedRecordId=""
             visibleColumns={['isChecked', 'label', 'mdSource', 'permitted', 'freeContent']}
-            history={history}
-            onSearchComplete={onSearchComplete}
-            location={{ pathname: '', search: '' }}
             {...props}
           />
         </ModuleHierarchyProvider>
@@ -167,7 +177,9 @@ describe('CollectionView is editable', () => {
   });
 
   test('if select one collection and click save button is calling function', async () => {
-    const checkbox = document.querySelector('#list-collections .mclRowContainer [data-row-index="row-0"] input[type="checkbox"]');
+    const checkbox = document.querySelector(
+      '#list-collections .mclRowContainer [data-row-index="row-0"] input[type="checkbox"]'
+    );
     const saveButton = document.querySelector('[data-test-find-collection-modal-save]');
 
     expect(checkbox).toBeInTheDocument();

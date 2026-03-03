@@ -1,6 +1,14 @@
+import {
+  findIndex,
+  get,
+  noop,
+} from 'lodash';
 import PropTypes from 'prop-types';
-import { findIndex, get, noop } from 'lodash';
-import { useState, useEffect, useRef } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { stripesConnect } from '@folio/stripes/core';
 import {
@@ -47,6 +55,7 @@ const CollectionSearchContainer = ({
     // Attention: This is hacky!
     const regexp = /,?assigned\.(yes|no)/gi;
     const filters = get(nsValues, 'filters', '');
+
     if (regexp.test(filters)) {
       let withoutAssigned = filters.replace(regexp, '');
       withoutAssigned = withoutAssigned.replace(/(^,)|(,$)/g, '');
@@ -57,6 +66,7 @@ const CollectionSearchContainer = ({
     } else {
       setAssignedStatus('');
     }
+
     mutator.query.update(nsValues);
   };
 
@@ -75,10 +85,17 @@ const CollectionSearchContainer = ({
   };
 
   let filtered = contentData;
+
   // Here we filter collections is they are assigned or unassigned
-  if (findIndex(assignedStatus, s => s.includes('yes')) >= 0 && findIndex(assignedStatus, s => s.includes('no')) === -1) {
+  if (
+    findIndex(assignedStatus, s => s.includes('yes')) >= 0 &&
+    findIndex(assignedStatus, s => s.includes('no')) === -1
+  ) {
     filtered = contentData.filter(c => filterToCollections.includes(c.id));
-  } else if (findIndex(assignedStatus, s => s.includes('no')) >= 0 && findIndex(assignedStatus, s => s.includes('yes')) === -1) {
+  } else if (
+    findIndex(assignedStatus, s => s.includes('no')) >= 0 &&
+    findIndex(assignedStatus, s => s.includes('yes')) === -1
+  ) {
     filtered = contentData.filter(c => !filterToCollections.includes(c.id));
   }
 
@@ -91,8 +108,8 @@ const CollectionSearchContainer = ({
       }}
       filtered={filtered}
       isEditable={isEditable}
-      onNeedMoreData={handleNeedMoreData}
       onClose={onClose}
+      onNeedMoreData={handleNeedMoreData}
       onSaveMultiple={passRecordsOut}
       queryGetter={queryGetter}
       querySetter={querySetter}
@@ -116,7 +133,7 @@ CollectionSearchContainer.manifest = Object.freeze({
           {
             'Collection Name': 'label',
           },
-          filterConfig,
+          filterConfig
           // show all records if no filter is selected
           // 2
         ),
@@ -139,8 +156,8 @@ CollectionSearchContainer.manifest = Object.freeze({
     initialValue: {
       query: '',
       filters: 'permitted.yes,selected.yes',
-      sort: ''
-    }
+      sort: '',
+    },
   },
   resultCount: { initialValue: INITIAL_RESULT_COUNT },
 });

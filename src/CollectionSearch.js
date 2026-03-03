@@ -1,10 +1,16 @@
-import PropTypes from 'prop-types';
-import { useState, useRef } from 'react';
-import { noop } from 'lodash';
-import { FormattedMessage } from 'react-intl';
 import contains from 'dom-helpers/query/contains';
+import { noop } from 'lodash';
+import PropTypes from 'prop-types';
+import {
+  useRef,
+  useState,
+} from 'react';
+import { FormattedMessage } from 'react-intl';
 
-import { Button, Icon } from '@folio/stripes/components';
+import {
+  Button,
+  Icon,
+} from '@folio/stripes/components';
 
 import CollectionSearchModal from './CollectionSearchModal';
 
@@ -57,15 +63,15 @@ const CollectionSearch = ({
         <FormattedMessage id="ui-plugin-find-finc-metadata-collection.searchButton.title">
           {ariaLabel => (
             <Button
+              key="searchButton"
               aria-label={ariaLabel}
               buttonRef={modalTrigger}
               buttonStyle={searchButtonStyle}
               id={buttonId}
-              key="searchButton"
               marginBottom0={marginBottom0}
               onClick={openModal}
             >
-              {searchLabel || <Icon icon="search" color="#fff" />}
+              {searchLabel || <Icon color="#fff" icon="search" />}
             </Button>
           )}
         </FormattedMessage>}
@@ -74,8 +80,8 @@ const CollectionSearch = ({
         filterId={filterId}
         isEditable={isEditable}
         modalRef={modalRef}
-        open={isModalOpen}
         onClose={closeModal}
+        open={isModalOpen}
         selectRecordsModal={passRecordsOut}
         {...props}
       />
@@ -88,11 +94,11 @@ CollectionSearch.propTypes = {
   collectionIds: PropTypes.arrayOf(PropTypes.object),
   filterId: PropTypes.string,
   isEditable: PropTypes.bool,
+  marginBottom0: PropTypes.bool,
   renderTrigger: PropTypes.func,
   searchButtonStyle: PropTypes.string,
   searchLabel: PropTypes.node,
   selectRecords: PropTypes.func,
-  marginBottom0: PropTypes.bool,
 };
 
 export default CollectionSearch;

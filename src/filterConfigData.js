@@ -7,7 +7,7 @@ const filterConfig = [
     operator: '=',
     values: [
       { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.yes" />, cql: 'yes' },
-      { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.no" />, cql: 'no' }
+      { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.no" />, cql: 'no' },
     ],
   },
   {
@@ -15,8 +15,14 @@ const filterConfig = [
     cql: 'freeContent',
     values: [
       { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.yes" />, cql: 'yes' },
-      { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.no" />, cql: 'no' },
-      { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.undetermined" />, cql: 'undetermined' }
+      {
+        name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.no" />,
+        cql: 'no',
+      },
+      {
+        name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.undetermined" />,
+        cql: 'undetermined',
+      },
     ],
   },
   {
@@ -25,7 +31,7 @@ const filterConfig = [
     operator: '=',
     values: [
       { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.yes" />, cql: 'yes' },
-      { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.no" />, cql: 'no' }
+      { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.no" />, cql: 'no' },
     ],
   },
   {
@@ -33,7 +39,7 @@ const filterConfig = [
     cql: 'assigned',
     values: [
       { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.yes" />, cql: 'yes' },
-      { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.no" />, cql: 'no' }
+      { name: <FormattedMessage id="ui-plugin-find-finc-metadata-collection.filterValue.no" />, cql: 'no' },
     ],
   },
   {
@@ -41,7 +47,7 @@ const filterConfig = [
     cql: 'mdSource.id',
     operator: '==',
     values: [],
-  }
+  },
 ];
 
 export default filterConfig;

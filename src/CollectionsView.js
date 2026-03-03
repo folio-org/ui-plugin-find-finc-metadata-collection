@@ -1,6 +1,15 @@
+import {
+  get,
+  keys,
+  mapKeys,
+  noop,
+  upperFirst,
+} from 'lodash';
 import PropTypes from 'prop-types';
-import { get, keys, mapKeys, noop, upperFirst } from 'lodash';
-import { useEffect, useState } from 'react';
+import {
+  useEffect,
+  useState,
+} from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import {
@@ -76,7 +85,7 @@ const CollectionsView = ({
     label: 270,
     mdSource: 270,
     permitted: 150,
-    freeContent: 150
+    freeContent: 150,
   };
 
   // fade in/out of filter-pane
@@ -87,6 +96,7 @@ const CollectionsView = ({
   // fade in / out the filter menu
   const renderResultsFirstMenu = (filters) => {
     const filterCount = filters.string !== '' ? filters.string.split(',').length : 0;
+
     if (filterPaneIsVisible) {
       return null;
     }
@@ -129,6 +139,7 @@ const CollectionsView = ({
     } else {
       checkedMapCurr[id] = toggledRecord;
     }
+
     const isAllCheckedCurr = contentData.every(record => Boolean(checkedMapCurr[record.id]));
 
     setCheckedMap(checkedMapCurr);
@@ -146,8 +157,10 @@ const CollectionsView = ({
     return (
       <div className={cssNoResults.noResultsMessage}>
         <div className={cssNoResults.noResultsMessageLabelWrap}>
-          <Icon iconRootClass={cssNoResults.noResultsMessageIcon} icon="search" />
-          <span className={cssNoResults.noResultsMessageLabel}><FormattedMessage id="ui-plugin-find-finc-metadata-collection.isEmptyMessage" /></span>
+          <Icon icon="search" iconRootClass={cssNoResults.noResultsMessageIcon} />
+          <span className={cssNoResults.noResultsMessageLabel}>
+            <FormattedMessage id="ui-plugin-find-finc-metadata-collection.isEmptyMessage" />
+          </span>
         </div>
       </div>
     );
@@ -214,7 +227,7 @@ const CollectionsView = ({
   };
 
   return (
-    <div data-test-collections ref={contentRef}>
+    <div ref={contentRef} data-test-collections>
       <SearchAndSortQuery
         initialFilterState={{ permitted: ['yes'], selected: ['yes'] }}
         initialSearchState={{ query: '' }}
@@ -304,8 +317,8 @@ const CollectionsView = ({
                   firstMenu={renderResultsFirstMenu(activeFilters)}
                   footer={footer}
                   padContent={false}
-                  paneTitle={<FormattedMessage id="ui-plugin-find-finc-metadata-collection.modal.paneTitle" />}
                   paneSub={renderResultsPaneSubtitle(filtered)}
+                  paneTitle={<FormattedMessage id="ui-plugin-find-finc-metadata-collection.modal.paneTitle" />}
                 >
                   <MultiColumnList
                     autosize
