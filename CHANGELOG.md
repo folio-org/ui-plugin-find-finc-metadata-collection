@@ -1,6 +1,9 @@
 # Change history for ui-plugin-find-finc-metadata-collection
 
-## 8.1.0 (IN PROGRESS)
+## IN PROGRESS
+
+
+## [8.1.0](https://github.com/folio-org/ui-plugin-find-finc-metadata-collection/tree/v8.1.0) (2026-04-20)
 * Add CODEOWNERS
 * Add eslint rules ([UIFC-478](https://folio-org.atlassian.net/browse/UIFC-478))
 
